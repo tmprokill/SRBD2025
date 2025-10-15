@@ -1,0 +1,120 @@
+{
+  "header": {
+    "buttons": {
+      "register-button": "Зареєструватися",
+      "login-button": "Увійти",
+      "logout-button": "Вийти з акаунту"
+    },
+    "messages": {
+      "successful-logout": "Ви успішно вийшли з акаунту"
+    }
+  },
+  "auth": {
+    "errors": {
+      "unauthorized": "Будь-ласка, авторизуйтесь"
+    },
+    "login": {
+      "placeholders": {
+        "login": "Введіть логін",
+        "password": "Введіть пароль"
+      },
+      "buttons": {
+        "login-submit": "Увійти до свого облікового запису",
+        "forgot-password": "Забули пароль?"
+      },
+      "errors": {
+        "login-required": "Поле логіну є обов’язковим",
+        "password-required": "Поле паролю є обов’язковим"
+      },
+      "messages": {
+        "successful-login": "Ви успішно увійшли до свого акаунту"
+      }
+    },
+    "register": {
+      "placeholders": {
+        "email": "Введіть вашу електронну адресу",
+        "username": "Виберіть ім'я користувача",
+        "password": "Введіть пароль",
+        "confirm-password": "Підтвердіть пароль"
+      },
+      "buttons": {
+        "register-submit": "Зареєструватися"
+      },
+      "errors": {
+        "email-invalid": "Електронна адреса не валідна",
+        "email-required": "Електронна адреса є обов'язковою",
+        "username-required": "Ім'я користувача є обов'язковим",
+        "password-required": "Пароль є обов'язковим",
+        "confirm-password-required": "Підтвердження пароля є обов'язковим",
+        "confirm-password-must-match": "Паролі мають співпадати"
+      },
+      "messages": {
+        "successful-registration": "Реєстрація успішна, підтвердіть пошту та будь-ласка авторизуйтесь"
+      }
+    },
+    "forgotPassword": {
+      "placeholders": { "email": "Введіть вашу електронну адресу" },
+      "buttons": { "submit": "Надіслати запит на зміну паролю" },
+      "errors": { "email-required": "Це поле обов'язкове" },
+      "messages": {
+        "successful-request": "Запит на зміну пароля було надіслано на вашу пошту."
+      }
+    },
+    "changePassword": {
+      "placeholders": {
+        "newPassword": "Введіть новий пароль",
+        "confirm-password": "Підтвердіть пароль"
+      },
+      "buttons": { "submit": "Змінити пароль" },
+      "errors": {
+        "missing-params": "Ваше посилання не валідне, спробуйте пізніше.",
+        "newPassword-required": "Новий пароль обов'язковий",
+        "confirm-password-must-match": "Паролі мають співпадати"
+      },
+      "messages": {
+        "successful-change": "Ваш пароль було успішно змінено"
+      }
+    },
+    "externalLoginCallback": {
+      "errors": {
+        "not-valid-data": "Ваше посилання не валідне, спробуйте пізніше.",
+        "not-valid-token": "Ваш токен не валідний"
+      },
+      "messages": {
+        "success": "Ви були успішно авторизовані",
+        "loading": "Авторизація в процесі.."
+      }
+    }
+  },
+  "appsettings": {
+    "theme": {
+      "dark": "Темна",
+      "light": "Світла"
+    }
+  },
+  "apiErrors": {
+    "auth": {
+      "user-google-info-missing": "Не вдалося отримати інформацію з Google облікового запису",
+      "user-not-assigned-external-login": "Користувача не було прив’язано до зовнішнього логіну",
+      "user-password-not-changed": "Пароль користувача не було змінено",
+      "user-not-found": "Користувача не знайдено",
+      "user-validation": "Помилка валідації на стороні серверу",
+      "user-roles-not-assigned": "Користувачу не вдалося призначити ролі",
+      "user-email-confirmation": "Електронну адресу користувача не підтверджено",
+      "user-account-locked": "Обліковий запис користувача заблоковано",
+      "user-credentials-invalid": "Неправильні облікові дані, спробуйте ще раз",
+      "user-token-invalid": "Невалідний або прострочений токен оновлення",
+      "user-username-not-unique": "Користувач з таким ім'ям вже існує",
+      "user-email-not-unique": "Користувач з такою поштою вже існує"
+    },
+    "common": {
+      "repository-not-found-error": "Запис не знайдено у сховищі даних",
+      "repository-update-error": "Не вдалося оновити запис у сховищі даних",
+      "repository-add-error": "Не вдалося додати запис у сховище даних",
+      "repository-delete-error": "Не вдалося видалити запис зі сховища даних",
+      "email-not-sent": "Не вдалося надіслати електронного листа",
+      "email-invalid-or-expired-token": "Невалідний або прострочений токен електронної пошти",
+      "application-error": "Виникла помилка в додатку, спробуйте пізніше"
+    }
+  }
+}

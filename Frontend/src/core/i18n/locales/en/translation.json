@@ -1,0 +1,120 @@
+{
+  "header": {
+    "buttons": {
+      "register-button": "Register",
+      "login-button": "Login",
+      "logout-button": "Logout"
+    },
+    "messages": {
+      "successful-logout": "You've successfully logged out"
+    }
+  },
+  "auth": {
+    "errors": {
+      "unauthorized": "Please, login into the system"
+    },
+    "login": {
+      "placeholders": {
+        "login": "Enter the login",
+        "password": "Enter the password"
+      },
+      "buttons": {
+        "login-submit": "Press to login into your account",
+        "forgot-password": "Forgot your password?"
+      },
+      "errors": {
+        "login-required": "The login field is required",
+        "password-required": "The password field is required"
+      },
+      "messages": {
+        "successful-login": "You've successfully authenticated"
+      }
+    },
+    "register": {
+      "placeholders": {
+        "email": "Enter your email",
+        "username": "Choose a username",
+        "password": "Enter your password",
+        "confirm-password": "Confirm your password"
+      },
+      "buttons": {
+        "register-submit": "Register"
+      },
+      "errors": {
+        "email-invalid": "Email is invalid",
+        "email-required": "Email is required",
+        "username-required": "Username is required",
+        "password-required": "Password is required",
+        "confirm-password-required": "Confirm password is required",
+        "confirm-password-must-match": "Confirm password must match"
+      },
+      "messages": {
+        "successful-registration": "Successful registration, now confirm the account and proceed with authorization"
+      }
+    },
+    "forgotPassword": {
+      "placeholders": { "email": "Enter your email" },
+      "buttons": { "submit": "Submit the request" },
+      "errors": { "email-required": "Email is required" },
+      "messages": {
+        "successful-request": "The request with a link to change the password was sent to your email"
+      }
+    },
+    "changePassword": {
+      "placeholders": {
+        "newPassword": "Enter your new password",
+        "confirm-password": "Confirm your password"
+      },
+      "buttons": { "submit": "Submit" },
+      "errors": {
+        "missing-params": "Your link is invalid. Try again later.",
+        "newPassword-required": "The new password is required",
+        "confirm-password-must-match": "Confirm password must match"
+      },
+      "messages": {
+        "successful-change": "Your password was successfully changed"
+      }
+    },
+    "externalLoginCallback": {
+      "errors": {
+        "not-valid-data": "Your link is invalid. Try again later.",
+        "not-valid-token": "Token that you've provided is not valid"
+      },
+      "messages": {
+        "success": "You've been successfully authorized",
+        "loading": "Authorization in progress.."
+      }
+    }
+  },
+  "appsettings": {
+    "theme": {
+      "dark": "Dark",
+      "light": "Light"
+    }
+  },
+  "apiErrors": {
+    "auth": {
+      "user-google-info-missing": "Failed to retrieve information from the Google account",
+      "user-not-assigned-external-login": "The user was not linked to the external login",
+      "user-password-not-changed": "The user's password was not changed",
+      "user-not-found": "User not found",
+      "user-validation": "Server-side validation error",
+      "user-roles-not-assigned": "Failed to assign roles to the user",
+      "user-email-confirmation": "User's email address is not confirmed",
+      "user-account-locked": "User account is locked",
+      "user-credentials-invalid": "Invalid credentials, please try again",
+      "user-token-invalid": "Invalid or expired refresh token",
+      "user-username-not-unique": "The username is not unique",
+      "user-email-not-unique": "The email is not unique"
+    },
+    "common": {
+      "repository-not-found-error": "Record not found in the data repository",
+      "repository-update-error": "Failed to update the record in the data repository",
+      "repository-add-error": "Failed to add the record to the data repository",
+      "repository-delete-error": "Failed to delete the record from the data repository",
+      "email-not-sent": "Failed to send the email",
+      "email-invalid-or-expired-token": "Invalid or expired email token",
+      "application-error": "An application error occurred, please try again later"
+    }
+  }
+}
