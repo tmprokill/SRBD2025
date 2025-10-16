@@ -24,7 +24,5 @@
 
     <ItemGroup>
       <Folder Include="Common\Mappers\" />
-      <Folder Include="Repository\Interfaces\" />
-      <Folder Include="Repository\Services\" />
     </ItemGroup>
 </Project>
