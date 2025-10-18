@@ -8,7 +8,7 @@ public interface IReaderRepository
 {
     public Task<Result<IEnumerable<Reader>>> GetReadersAsync();
     
-    public Task<Result<IEnumerable<Reader>>> GetReaderDetailsAsync(int readerId);
+    public Task<Result<Reader>> GetReaderDetailsAsync(int readerId);
 
     public Task<Result<bool>> UpdateReaderAsync(int readerId, ReaderDTO readerDto);
 

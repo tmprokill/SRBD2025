@@ -20,12 +20,12 @@ public class ReaderRepository : IReaderRepository
 
     public async Task<Result<IEnumerable<Reader>>> GetReadersAsync()
     {
-        using var connection = await _connectionFactory.CreateDbConnection();
-
-        const string selectUsersSql = "SELECT ReaderID, FullName, Adress, Phone FROM Readers";
+        const string selectUsersSql = "SELECT ReaderID, FullName, Address, Phone FROM Readers ORDER BY FullName ASC";
 
         try
         {
+            using var connection = await _connectionFactory.CreateDbConnection();
+
             var users = await connection.QueryAsync<Reader>(selectUsersSql);
             return Result<IEnumerable<Reader>>.Success(users);
         }
@@ -35,42 +35,40 @@ public class ReaderRepository : IReaderRepository
         }
     }
 
-    public async Task<Result<IEnumerable<Reader>>> GetReaderDetailsAsync(int readerId)
+    public async Task<Result<Reader>> GetReaderDetailsAsync(int readerId)
     {
-        using var connection = await _connectionFactory.CreateDbConnection();
-
-        const string selectUserSql = "SELECT ReaderID, FullName, Adress, Phone FROM Readers WHERE readerId = @readerId";
+        const string selectUserSql = "SELECT ReaderID, FullName, Address, Phone FROM Readers WHERE readerId = @readerId";
 
         try
         {
-            var users = await connection.QueryAsync<Reader>(selectUserSql, param: new { readerId = readerId });
-            return Result<IEnumerable<Reader>>.Success(users);
+            using var connection = await _connectionFactory.CreateDbConnection();
+            var users = await connection.QuerySingleAsync<Reader>(selectUserSql, param: new { readerId = readerId });
+            return Result<Reader>.Success(users);
         }
         catch (Exception ex)
         {
-            return Result<IEnumerable<Reader>>.Failure(RepositoryErrors<Reader>.NotFoundError);
+            return Result<Reader>.Failure(RepositoryErrors<Reader>.NotFoundError);
         }
     }
 
     public async Task<Result<bool>> UpdateReaderAsync(int readerId, ReaderDTO readerDto)
     {
-        using var connection = await _connectionFactory.CreateDbConnection();
-
-        const string selectUserSql =
+        const string updateReaderSql = 
             """
-            UPDATE Readers 
-            SET FullName = @fullName, Adress = @address, Phone = @phone FROM Readers 
-            WHERE readerId = @readerId;
-            """;
+               UPDATE Readers 
+               SET FullName = @FullName, Address = @Address , Phone = @Phone
+               WHERE ReaderID= @ReaderId
+           """;
         try
         {
-            var result = await connection.ExecuteAsync(selectUserSql,
+            using var connection = await _connectionFactory.CreateDbConnection();
+            var result = await connection.ExecuteAsync(updateReaderSql,
                 param: new
                 {
-                    readerId = readerId,
-                    fullName = readerDto.FullName,
-                    address = readerDto.Address,
-                    phone = readerDto.Phone
+                    ReaderId = readerId,
+                    FullName = readerDto.FullName,
+                    Address = readerDto.Address,
+                    Phone = readerDto.Phone
                 });
 
             if (result != 1)
@@ -88,17 +86,16 @@ public class ReaderRepository : IReaderRepository
 
     public async Task<Result<bool>> DeleteReaderAsync(int readerId)
     {
-        using var connection = await _connectionFactory.CreateDbConnection();
-
         const string selectUserSql =
             """
             DELETE FROM Readers 
-            WHERE userId = @readerId;
+            WHERE ReaderID = @ReaderId;
             """;
         try
         {
-            var result = await connection.ExecuteAsync(selectUserSql, param: new { readerId = readerId, });
- 
+            using var connection = await _connectionFactory.CreateDbConnection();
+            var result = await connection.ExecuteAsync(selectUserSql, param: new { ReaderId = readerId, });
+
             if (result != 1)
             {
                 return Result<bool>.Failure(RepositoryErrors<Reader>.NotFoundError);

@@ -22,7 +22,7 @@ public class ReaderService : IReaderService
         return result;
     }
 
-    public async Task<Result<IEnumerable<Reader>>> GetReaderDetailsAsync(int readerId)
+    public async Task<Result<Reader>> GetReaderDetailsAsync(int readerId)
     {
         var result = await _readerRepository.GetReaderDetailsAsync(readerId);
 
