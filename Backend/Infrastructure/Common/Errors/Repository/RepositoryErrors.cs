@@ -15,4 +15,7 @@ public static class RepositoryErrors<T>
 
     public static readonly Error DeleteError =
         Error.NotFound($"common.repository-delete-error", $"{EntityName} couldn't be deleted");
+    
+    public static readonly Error CascadeError =
+        Error.NotFound($"common.repository-cascade-error", $"{EntityName} has dependencies and cannot be deleted");
 }

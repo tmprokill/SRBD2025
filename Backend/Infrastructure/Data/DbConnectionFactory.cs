@@ -3,7 +3,7 @@ using Microsoft.Data.SqlClient;
 
 namespace Infrastructure.Data;
 
-public class DbConnectionFactory : IDBConnectionFactory
+public class DbConnectionFactory : IDbConnectionFactory
 {
     private readonly string _connectionString;
 
@@ -21,7 +21,7 @@ public class DbConnectionFactory : IDBConnectionFactory
     }
 }
 
-public interface IDBConnectionFactory
+public interface IDbConnectionFactory
 {
     Task<IDbConnection> CreateDbConnection(CancellationToken cancellationToken = default);
 }

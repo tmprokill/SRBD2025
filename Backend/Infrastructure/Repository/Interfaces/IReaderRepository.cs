@@ -10,7 +10,12 @@ public interface IReaderRepository
     
     public Task<Result<Reader>> GetReaderDetailsAsync(int readerId);
 
-    public Task<Result<bool>> UpdateReaderAsync(int readerId, ReaderDTO readerDto);
+    public Task<Result> AddReaderAsync(ReaderDTO readerDto);
+    
+    public Task<Result> UpdateReaderAsync(int readerId, ReaderDTO readerDto);
 
-    public Task<Result<bool>> DeleteReaderAsync(int readerId);
+    public Task<Result> DeleteReaderAsync(int readerId);
+
+    //function
+    public Task<Result<int>> CountReadersFromCity(string city);
 }

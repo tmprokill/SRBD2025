@@ -1,6 +1,8 @@
 ﻿using Api.Exceptions;
 using Infrastructure.Common.Email;
 using Infrastructure.Data;
+using Infrastructure.Repository.Interfaces;
+using Infrastructure.Repository.Services;
 using Microsoft.OpenApi.Models;
 using Serilog;
 
@@ -19,7 +21,7 @@ public static class ConfigureBuilder
 
         services.AddControllers();
 
-        services.AddSingleton<IDBConnectionFactory>(_ => 
+        services.AddSingleton<IDbConnectionFactory>(_ => 
             new DbConnectionFactory(builder.Configuration["ConnectionStrings:DefaultConnection"]!));
         
         services.AddEndpointsApiExplorer();
@@ -29,6 +31,13 @@ public static class ConfigureBuilder
         
         services.AddHttpContextAccessor();
         services.AddScoped<IEmailService, EmailService>();
+        services.AddScoped<IAuthorRepository, AuthorRepository>();
+        services.AddScoped<IBookCopyRepository, BookCopyRepository>();
+        services.AddScoped<IBookRepository, BookRepository>();
+        services.AddScoped<IBorrowingRepository, BorrowingRepository>();
+        services.AddScoped<IReaderRepository, ReaderRepository>();
+        services.AddScoped<ISalesLogRepository, SalesLogRepository>();
+        services.AddScoped<ISalesRepository, SalesRepository>();
     }
 
     private static void AddSwagger(this WebApplicationBuilder builder)

@@ -6,14 +6,15 @@ using Infrastructure.Common.Errors.Repository;
 using Infrastructure.Common.ResultPattern;
 using Infrastructure.Data;
 using Infrastructure.Repository.Interfaces;
+using Microsoft.Data.SqlClient;
 
 namespace Infrastructure.Repository.Services;
 
 public class ReaderRepository : IReaderRepository
 {
-    private readonly DbConnectionFactory _connectionFactory;
+    private readonly IDbConnectionFactory _connectionFactory;
 
-    public ReaderRepository(DbConnectionFactory connectionFactory)
+    public ReaderRepository(IDbConnectionFactory connectionFactory)
     {
         _connectionFactory = connectionFactory;
     }
@@ -45,13 +46,44 @@ public class ReaderRepository : IReaderRepository
             var users = await connection.QuerySingleAsync<Reader>(selectUserSql, param: new { readerId = readerId });
             return Result<Reader>.Success(users);
         }
-        catch (Exception ex)
+        catch (SqlException ex)
         {
             return Result<Reader>.Failure(RepositoryErrors<Reader>.NotFoundError);
         }
     }
 
-    public async Task<Result<bool>> UpdateReaderAsync(int readerId, ReaderDTO readerDto)
+    public async Task<Result> AddReaderAsync(ReaderDTO readerDto)
+    {
+        const string addReaderSql = 
+            """
+                INSERT INTO Readers (FullName, Address, Phone) 
+                VALUES (@FullName, @Address, @Phone);
+            """;
+        try
+        {
+            using var connection = await _connectionFactory.CreateDbConnection();
+            var result = await connection.ExecuteAsync(addReaderSql,
+                param: new
+                {
+                    FullName = readerDto.FullName,
+                    Address = readerDto.Address,
+                    Phone = readerDto.Phone
+                });
+
+            if (result != 1)
+            {
+                return Result.Failure(RepositoryErrors<Reader>.AddError);
+            }
+
+            return Result.Success();
+        }
+        catch (SqlException ex)
+        {
+            return Result.Failure(RepositoryErrors<Reader>.AddError);
+        }
+    }
+
+    public async Task<Result> UpdateReaderAsync(int readerId, ReaderDTO readerDto)
     {
         const string updateReaderSql = 
             """
@@ -73,18 +105,18 @@ public class ReaderRepository : IReaderRepository
 
             if (result != 1)
             {
-                return Result<bool>.Failure(RepositoryErrors<Reader>.NotFoundError);
+                return Result.Failure(RepositoryErrors<Reader>.UpdateError);
             }
 
-            return Result<bool>.Success(true);
+            return Result.Success();
         }
-        catch (Exception ex)
+        catch (SqlException ex)
         {
-            return Result<bool>.Failure(RepositoryErrors<Reader>.NotFoundError);
+            return Result.Failure(RepositoryErrors<Reader>.UpdateError);
         }
     }
 
-    public async Task<Result<bool>> DeleteReaderAsync(int readerId)
+    public async Task<Result> DeleteReaderAsync(int readerId)
     {
         const string selectUserSql =
             """
@@ -98,14 +130,35 @@ public class ReaderRepository : IReaderRepository
 
             if (result != 1)
             {
-                return Result<bool>.Failure(RepositoryErrors<Reader>.NotFoundError);
+                return Result.Failure(RepositoryErrors<Reader>.DeleteError);
             }
 
-            return Result<bool>.Success(true);
+            return Result.Success();
         }
-        catch (Exception ex)
+        catch (SqlException ex)
         {
-            return Result<bool>.Failure(RepositoryErrors<Reader>.NotFoundError);
+            if (ex.Number == 547)
+            {
+                return Result.Failure(RepositoryErrors<Reader>.CascadeError);
+            }
+            
+            return Result.Failure(RepositoryErrors<Reader>.DeleteError);
+        }
+    }
+
+    public async Task<Result<int>> CountReadersFromCity(string city)
+    {
+        const string countReadersSql = "SELECT dbo.CountReadersFromCity(@City)";
+        try
+        {
+            using var connection = await _connectionFactory.CreateDbConnection();
+            var countReaders = await connection.QuerySingleAsync<int>(countReadersSql, param: new { City = city, });
+
+            return Result<int>.Success(countReaders);
+        }
+        catch (SqlException ex)
+        {
+            return Result<int>.Failure(RepositoryErrors<Reader>.NotFoundError);
         }
     }
 }

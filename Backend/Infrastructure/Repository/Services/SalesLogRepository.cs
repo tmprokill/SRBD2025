@@ -5,14 +5,15 @@ using Infrastructure.Common.Errors.Repository;
 using Infrastructure.Common.ResultPattern;
 using Infrastructure.Data;
 using Infrastructure.Repository.Interfaces;
+using Microsoft.Data.SqlClient;
 
 namespace Infrastructure.Repository.Services;
 
 public class SalesLogRepository : ISalesLogRepository
 {
-    private readonly IDBConnectionFactory _connectionFactory;
+    private readonly IDbConnectionFactory _connectionFactory;
 
-    public SalesLogRepository(IDBConnectionFactory dbConnectionFactory)
+    public SalesLogRepository(IDbConnectionFactory dbConnectionFactory)
     {
         _connectionFactory = dbConnectionFactory;
     }
@@ -37,17 +38,17 @@ public class SalesLogRepository : ISalesLogRepository
             if (saleId.HasValue)
             {
                 whereClauses.Add("SaleID = @SaleId");
-                parameters.Add("SaleId", saleId.Value);
+                parameters.Add("SaleId", saleId);
             }
             if (fromDate.HasValue)
             {
                 whereClauses.Add("ModifyDate >= @FromDate");
-                parameters.Add("FromDate", fromDate.Value);
+                parameters.Add("FromDate", fromDate);
             }
             if (toDate.HasValue)
             {
                 whereClauses.Add("ModifyDate <= @ToDate");
-                parameters.Add("ToDate", toDate.Value);
+                parameters.Add("ToDate", toDate);
             }
             if (whereClauses.Count > 0)
             {
@@ -65,7 +66,7 @@ public class SalesLogRepository : ISalesLogRepository
 
             return Result<IEnumerable<SalesLog>>.Success(logs);
         }
-        catch (Exception ex)
+        catch (SqlException ex)
         {
             return Result<IEnumerable<SalesLog>>.Failure(RepositoryErrors<SalesLog>.NotFoundError);
         }

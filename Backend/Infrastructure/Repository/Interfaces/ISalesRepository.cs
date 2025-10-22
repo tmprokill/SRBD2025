@@ -8,9 +8,9 @@ public interface ISalesRepository
 {
     public Task<Result<Sale>> GetSaleDetailsAsync(int saleId);
     
-    public Task<Result<bool>> AddSaleAsync(SaleDTO sale);
+    public Task<Result> AddSaleAsync(SaleDTO sale);
     
-    public Task<Result<bool>> UpdateSaleAsync(int saleId, SaleDTO sale);
+    public Task<Result> UpdateSaleAsync(int saleId, SaleDTO sale);
     
-    public Task<Result<bool>> DeleteSaleAsync(int saleId);
+    public Task<Result> DeleteSaleAsync(int saleId);
 }

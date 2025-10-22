@@ -1,6 +1,6 @@
 ﻿using Api.ApiResult;
-using Application.Interfaces;
-using Domain.Models;
+using Domain.DTOs;
+using Infrastructure.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -9,17 +9,17 @@ namespace Api.Controllers;
 [Route("api/[controller]")]
 public class ReaderController : ControllerBase
 {
-    private readonly IReaderService _readerService;
+    private readonly IReaderRepository _readerRepository;
 
-    public ReaderController(IReaderService readerService)
+    public ReaderController(IReaderRepository readerRepository)
     {
-        _readerService = readerService;
+        _readerRepository = readerRepository;
     }
 
-    [HttpGet("id")]
+    [HttpGet("{readerId}")]
     public async Task<IActionResult> GetReaderDetails(int readerId)
     {
-        var result = await _readerService.GetReaderDetailsAsync(readerId);
+        var result = await _readerRepository.GetReaderDetailsAsync(readerId);
 
         return result.Match(
             successStatusCode: 200,
@@ -31,7 +31,55 @@ public class ReaderController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetReaders()
     {
-        var result = await _readerService.GetReadersAsync();
+        var result = await _readerRepository.GetReadersAsync();
+
+        return result.Match(
+            successStatusCode: 200,
+            includeBody: true,
+            message: "null",
+            failure: ApiResults.ToProblemDetails);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddReader([FromBody] ReaderDTO readerDto)
+    {
+        var result = await _readerRepository.AddReaderAsync(readerDto);
+
+        return result.MatchNoData(
+            successStatusCode: 201,
+            includeBody: true,
+            message: "Reader created successfully",
+            failure: ApiResults.ToProblemDetails);
+    }
+
+    [HttpPut("{readerId}")]
+    public async Task<IActionResult> UpdateReader(int readerId, [FromBody] ReaderDTO readerDto)
+    {
+        var result = await _readerRepository.UpdateReaderAsync(readerId, readerDto);
+
+        return result.MatchNoData(
+            successStatusCode: 200,
+            includeBody: true,
+            message: "Reader updated successfully",
+            failure: ApiResults.ToProblemDetails);
+    }
+
+    [HttpDelete("{readerId}")]
+    public async Task<IActionResult> DeleteReader(int readerId)
+    {
+        var result = await _readerRepository.DeleteReaderAsync(readerId);
+
+        return result.MatchNoData(
+            successStatusCode: 204,
+            includeBody: true,
+            message: "Reader deleted successfully",
+            failure: ApiResults.ToProblemDetails);
+    }
+
+    [HttpGet("count/city/{city}")]
+    public async Task<IActionResult> CountReadersFromCity(string city)
+    {
+        var result = await _readerRepository.CountReadersFromCity(city);
 
         return result.Match(
             successStatusCode: 200,

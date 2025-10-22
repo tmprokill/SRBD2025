@@ -6,7 +6,7 @@ public class SaleDTO
 
     public int BookID { get; set; }
     
-    public DateTime SaleDate { get; set; }
+    public DateTime? SaleDate { get; set; }
     
     public int Quantity { get; set; }
     
