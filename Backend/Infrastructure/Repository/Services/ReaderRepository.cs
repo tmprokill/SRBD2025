@@ -2,6 +2,7 @@
 using Domain.DTOs;
 using Domain.Models;
 using Infrastructure.Common.Errors;
+using Infrastructure.Common.Errors.Readers;
 using Infrastructure.Common.Errors.Repository;
 using Infrastructure.Common.ResultPattern;
 using Infrastructure.Data;
@@ -21,7 +22,7 @@ public class ReaderRepository : IReaderRepository
 
     public async Task<Result<IEnumerable<Reader>>> GetReadersAsync()
     {
-        const string selectUsersSql = "SELECT ReaderID, FullName, Address, Phone FROM Readers ORDER BY FullName ASC";
+        const string selectUsersSql = "SELECT ReaderID, FullName, Address, Phone FROM Readers ORDER BY ReaderID ASC";
 
         try
         {
@@ -48,7 +49,7 @@ public class ReaderRepository : IReaderRepository
         }
         catch (SqlException ex)
         {
-            return Result<Reader>.Failure(RepositoryErrors<Reader>.NotFoundError);
+            return Result<Reader>.Failure(ReaderErrors.ReaderNotFound);
         }
     }
 

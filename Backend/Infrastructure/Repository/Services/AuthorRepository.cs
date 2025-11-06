@@ -45,4 +45,20 @@ public class AuthorRepository : IAuthorRepository
             return Result.Failure(RepositoryErrors<Author>.AddError);
         }
     }
+
+    public async Task<Result<IEnumerable<Author>>> GetAuthorsAsync()
+    {
+        const string selectAuthorsSql = "SELECT AuthorID, Pseudonym, FirstName, LastName FROM Authors ORDER BY LastName, FirstName";
+
+        try
+        {
+            using var connection = await _connectionFactory.CreateDbConnection();
+            var authors = await connection.QueryAsync<Author>(selectAuthorsSql);
+            return Result<IEnumerable<Author>>.Success(authors);
+        }
+        catch (SqlException ex)
+        {
+            return Result<IEnumerable<Author>>.Failure(RepositoryErrors<Author>.NotFoundError);
+        }
+    }
 }

@@ -8,23 +8,11 @@ public static class ResultExtensions
     public static IActionResult MatchNoData(
         this Result result,
         int successStatusCode,
-        bool includeBody,
-        string message,
         Func<Result, IActionResult>? failure = null
     )
     {
         if (result.IsSuccess)
         {
-            if (includeBody)
-            {
-                var body = new ApiResponse
-                {
-                    Message = message,
-                };
-                
-                return new ObjectResult(body) { StatusCode = successStatusCode };
-            }
-            
             return new StatusCodeResult(successStatusCode);
         }
         
@@ -36,25 +24,17 @@ public static class ResultExtensions
     public static IActionResult Match<T>(
         this Result<T> result,
         int successStatusCode,
-        bool includeBody,
-        string message,
         Func<Result<T>, IActionResult>? failure = null
     )
     {
         if (result.IsSuccess)
         {
-            if (includeBody)
+            var body = new ApiResponse<T>
             {
-                var body = new ApiResponse<T>
-                {
-                    Message = message,
-                    Data = result.Value
-                };
-                
-                return new ObjectResult(body) { StatusCode = successStatusCode };
-            }
+                Data = result.Value
+            };
             
-            return new StatusCodeResult(successStatusCode);
+            return new ObjectResult(body) { StatusCode = successStatusCode };
         }
         
         return failure != null

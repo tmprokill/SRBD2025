@@ -230,7 +230,7 @@ public class BookRepository : IBookRepository
 
     public async Task<Result<int>> CountGreaterThanAvgPrice()
     {
-        const string countGreaterThanAvgPriceSql = "SELECT count_greater_than_avg_price()";
+        const string countGreaterThanAvgPriceSql = "SELECT dbo.count_greater_than_avg_price()";
         try
         {
             using var connection = await _connectionFactory.CreateDbConnection();
@@ -246,7 +246,7 @@ public class BookRepository : IBookRepository
 
     public async Task<Result<int>> CountBooksMorePriceThan(double price)
     {
-        const string countMorePriceThanSql = "SELECT count_books_more_price_than(@NewPrice)";
+        const string countMorePriceThanSql = "SELECT dbo.count_books_more_price_than(@NewPrice)";
         try
         {
             using var connection = await _connectionFactory.CreateDbConnection();
@@ -263,7 +263,7 @@ public class BookRepository : IBookRepository
 
     public async Task<Result<IEnumerable<SecondPopularBookResponse>>> GetSecondPopularBookAsync(int minTotalSold)
     {
-        const string selectSecondPopularBookSql = "SELECT * FROM fn_GetEverySecondPopularBook(@MinQuantity)";
+        const string selectSecondPopularBookSql = "SELECT * FROM dbo.fn_GetEverySecondPopularBook(@MinQuantity)";
         try
         {
             using var connection = await _connectionFactory.CreateDbConnection();

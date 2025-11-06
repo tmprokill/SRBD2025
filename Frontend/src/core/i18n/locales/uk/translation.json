@@ -1,4 +1,179 @@
 {
+  "readers": {
+    "title": "Керування читачами",
+    "subtitle": "Керуйте читачами бібліотеки та їхніми даними",
+    "table": {
+      "name": "Ім'я",
+      "email": "Ел. пошта",
+      "phone": "Номер телефону",
+      "address": "Адреса",
+      "actions": "Дії"
+    },
+    "actions": {
+      "addNew": "Додати читача",
+      "view": "Переглянути",
+      "edit": "Редагувати",
+      "delete": "Видалити"
+    },
+    "cityCounter": {
+      "label": "Читачі з міста",
+      "placeholder": "Введіть назву міста",
+      "button": "Порахувати"
+    },
+    "messages": {
+      "noReaders": "Читачів не знайдено. Додайте першого читача, щоб розпочати.",
+      "confirm-delete": "Ви впевнені, що хочете видалити цього читача?",
+      "delete-success": "Читача успішно видалено",
+      "add-success": "Читача успішно додано",
+      "update-success": "Дані читача успішно оновлено",
+      "enter-city": "Будь ласка, введіть назву міста",
+      "count-success": "Знайдено {{count}} читач(ів) з міста {{city}}"
+    },
+    "details": {
+      "title": "Деталі читача",
+      "subtitle": "Повна інформація про читача",
+      "personalInfo": "Особиста інформація",
+      "contactInfo": "Контактна інформація",
+      "statistics": "Статистика",
+      "registrationDate": "Дата реєстрації",
+      "borrowedBooks": "Позичені книги"
+    },
+    "form": {
+      "addTitle": "Додати читача",
+      "addSubtitle": "Заповніть поля нижче, щоб додати нового читача",
+      "editTitle": "Редагувати читача",
+      "editSubtitle": "Оновіть інформацію про читача",
+      "sections": {
+        "personalInfo": "Особиста інформація",
+        "contactInfo": "Контактна інформація"
+      },
+      "errors": {
+        "required": "є обов'язковим",
+        "phone-invalid": "Номер телефону повинен містити від 10 до 15 цифр"
+      }
+    },
+    "fields": {
+      "fullName": "Повне ім'я",
+      "phone": "Номер телефону",
+      "address": "Адреса"
+    }
+  },
+  "books": {
+    "title": "Керування книгами",
+    "subtitle": "Керуйте книгами бібліотеки та їхньою інформацією",
+    "table": {
+      "title": "Назва",
+      "author": "Автор",
+      "genre": "Жанр",
+      "price": "Ціна",
+      "quantity": "Кількість",
+      "actions": "Дії",
+      "authorId": "ID автора",
+      "genreId": "ID жанру"
+    },
+    "actions": {
+      "addNew": "Додати книгу",
+      "view": "Переглянути",
+      "edit": "Редагувати",
+      "delete": "Видалити"
+    },
+    "operations": {
+      "updateDescription": {
+        "title": "Оновити описи за ціною",
+        "description": "Оновити описи книг на основі критеріїв ціни",
+        "button": "Оновити описи"
+      },
+      "cutPrice": {
+        "title": "Знизити ціну",
+        "percentPlaceholder": "Відсоток (напр., 10)",
+        "minSalesPlaceholder": "Мін. значення продажів",
+        "button": "Знизити ціну"
+      },
+      "countAvg": {
+        "title": "Порахувати більше середньої ціни",
+        "description": "Порахувати книги з ціною більше середньої",
+        "button": "Порахувати"
+      },
+      "countPrice": {
+        "title": "Порахувати книги дорожче за",
+        "placeholder": "Введіть ціну",
+        "button": "Порахувати"
+      },
+      "secondPopular": {
+        "title": "Отримати кожну другу найпопулярнішу книгу",
+        "placeholder": "Мін. всього продано",
+        "button": "Отримати книгу"
+      }
+    },
+    "messages": {
+      "noBooks": "Книг не знайдено. Додайте першу книгу, щоб розпочати.",
+      "confirm-delete": "Ви впевнені, що хочете видалити цю книгу?",
+      "delete-success": "Книгу успішно видалено",
+      "add-success": "Книгу успішно додано",
+      "update-success": "Книгу успішно оновлено",
+      "update-description-success": "Описи книг успішно оновлено",
+      "cut-price-success": "Ціни успішно знижено",
+      "count-avg-success": "Знайдено {{count}} книг(и) з ціною більше середньої",
+      "count-price-success": "Знайдено {{count}} книг(и) з ціною більше ${{price}}",
+      "second-popular-success": "Друга найпопулярніша книга: {{title}} (Всього продано: {{totalSold}})",
+      "invalid-input": "Будь ласка, введіть валідні числа",
+      "enter-price": "Будь ласка, введіть валідну ціну",
+      "enter-min-sold": "Будь ласка, введіть валідне мінімальне значення продажів"
+    },
+    "details": {
+      "title": "Деталі книги",
+      "subtitle": "Повна інформація про книгу",
+      "basicInfo": "Основна інформація",
+      "authorInfo": "Інформація про автора",
+      "genreInfo": "Інформація про жанр"
+    },
+    "form": {
+      "addTitle": "Додати книгу",
+      "addSubtitle": "Заповніть поля нижче, щоб додати нову книгу",
+      "editTitle": "Редагувати книгу",
+      "editSubtitle": "Оновіть інформацію про книгу",
+      "selectAuthor": "Виберіть автора...",
+      "selectGenre": "Виберіть жанр...",
+      "sections": {
+        "basicInfo": "Основна інформація",
+        "pricingInventory": "Ціноутворення та інвентар",
+        "description": "Опис"
+      },
+      "errors": {
+        "required": "є обов'язковим",
+        "price-negative": "Ціна не може бути від'ємною",
+        "quantity-negative": "Кількість не може бути від'ємною",
+        "quantity-integer": "Кількість повинна бути цілим числом",
+        "authorId-required": "ID автора повинен бути більше 0",
+        "genreId-required": "ID жанру повинен бути більше 0"
+      }
+    },
+    "fields": {
+      "title": "Назва",
+      "author": "Автор",
+      "authorId": "ID автора",
+      "genre": "Жанр",
+      "genreId": "ID жанру",
+      "price": "Ціна",
+      "quantity": "Кількість",
+      "description": "Опис",
+      "bookId": "ID книги",
+      "pseudonym": "Псевдонім",
+      "firstName": "Ім'я",
+      "lastName": "Прізвище",
+      "genreName": "Назва жанру",
+      "genreDescription": "Опис жанру"
+    }
+  },
+  "common": {
+    "loading": "Завантаження...",
+    "saving": "Збереження...",
+    "back": "Назад",
+    "cancel": "Скасувати",
+    "create": "Створити",
+    "update": "Оновити",
+    "save": "Зберегти"
+  },
   "header": {
     "buttons": {
       "register-button": "Зареєструватися",
@@ -93,28 +268,34 @@
     }
   },
   "apiErrors": {
+    "readers": {
+      "READER_NOT_FOUND": "Читача не знайдено"
+    },
     "auth": {
-      "user-google-info-missing": "Не вдалося отримати інформацію з Google облікового запису",
-      "user-not-assigned-external-login": "Користувача не було прив’язано до зовнішнього логіну",
-      "user-password-not-changed": "Пароль користувача не було змінено",
-      "user-not-found": "Користувача не знайдено",
-      "user-validation": "Помилка валідації на стороні серверу",
-      "user-roles-not-assigned": "Користувачу не вдалося призначити ролі",
-      "user-email-confirmation": "Електронну адресу користувача не підтверджено",
-      "user-account-locked": "Обліковий запис користувача заблоковано",
-      "user-credentials-invalid": "Неправильні облікові дані, спробуйте ще раз",
-      "user-token-invalid": "Невалідний або прострочений токен оновлення",
-      "user-username-not-unique": "Користувач з таким ім'ям вже існує",
-      "user-email-not-unique": "Користувач з такою поштою вже існує"
+      "USER_GOOGLE_INFO_MISSING": "Не вдалося отримати інформацію з Google облікового запису",
+      "USER_NOT_ASSIGNED_EXTERNAL_LOGIN": "Користувача не було прив’язано до зовнішнього логіну",
+      "USER_PASSWORD_NOT_CHANGED": "Пароль користувача не було змінено",
+      "USER_NOT_FOUND": "Користувача не знайдено",
+      "USER_VALIDATION": "Помилка валідації на стороні сервера",
+      "USER_ROLES_NOT_ASSIGNED": "Користувачу не вдалося призначити ролі",
+      "USER_EMAIL_CONFIRMATION": "Електронну адресу користувача не підтверджено",
+      "USER_ACCOUNT_LOCKED": "Обліковий запис користувача заблоковано",
+      "USER_CREDENTIALS_INVALID": "Неправильні облікові дані, спробуйте ще раз",
+      "USER_TOKEN_INVALID": "Невалідний або прострочений токен оновлення",
+      "USER_USERNAME_NOT_UNIQUE": "Користувач з таким ім'ям вже існує",
+      "USER_EMAIL_NOT_UNIQUE": "Користувач з такою поштою вже існує"
     },
     "common": {
-      "repository-not-found-error": "Запис не знайдено у сховищі даних",
-      "repository-update-error": "Не вдалося оновити запис у сховищі даних",
-      "repository-add-error": "Не вдалося додати запис у сховище даних",
-      "repository-delete-error": "Не вдалося видалити запис зі сховища даних",
-      "email-not-sent": "Не вдалося надіслати електронного листа",
-      "email-invalid-or-expired-token": "Невалідний або прострочений токен електронної пошти",
-      "application-error": "Виникла помилка в додатку, спробуйте пізніше"
+      "INVALID_DATA": "Невірні вхідні дані",
+      "DATABASE_ERROR": "Сталася помилка під час обробки запиту",
+      "REPOSITORY_NOT_FOUND_ERROR": "Запис не знайдено у сховищі даних",
+      "REPOSITORY_UPDATE_ERROR": "Не вдалося оновити запис у сховищі даних",
+      "REPOSITORY_ADD_ERROR": "Не вдалося додати запис у сховище даних",
+      "REPOSITORY_DELETE_ERROR": "Не вдалося видалити запис зі сховища даних",
+      "REPOSITORY_CASCADE_ERROR": "Не вдалося видалити, оскільки є залежні записи",
+      "EMAIL_NOT_SENT": "Не вдалося надіслати електронного листа",
+      "EMAIL_INVALID_OR_EXPIRED_TOKEN": "Невалідний або прострочений токен електронної пошти",
+      "APPLICATION_ERROR": "Виникла помилка в додатку, спробуйте пізніше"
     }
   }
 }

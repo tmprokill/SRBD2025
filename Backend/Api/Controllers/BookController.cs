@@ -24,8 +24,6 @@ public class BookController : ControllerBase
 
         return result.Match(
             successStatusCode: 200,
-            includeBody: true,
-            message: "null",
             failure: ApiResults.ToProblemDetails);
     }
 
@@ -36,8 +34,6 @@ public class BookController : ControllerBase
 
         return result.Match(
             successStatusCode: 200,
-            includeBody: true,
-            message: "null",
             failure: ApiResults.ToProblemDetails);
     }
 
@@ -48,8 +44,6 @@ public class BookController : ControllerBase
 
         return result.MatchNoData(
             successStatusCode: 201,
-            includeBody: true,
-            message: "Book created successfully",
             failure: ApiResults.ToProblemDetails);
     }
 
@@ -60,8 +54,6 @@ public class BookController : ControllerBase
 
         return result.MatchNoData(
             successStatusCode: 200,
-            includeBody: true,
-            message: "Book updated successfully",
             failure: ApiResults.ToProblemDetails);
     }
 
@@ -72,8 +64,6 @@ public class BookController : ControllerBase
 
         return result.MatchNoData(
             successStatusCode: 204,
-            includeBody: true,
-            message: "Book deleted successfully",
             failure: ApiResults.ToProblemDetails);
     }
 
@@ -84,8 +74,6 @@ public class BookController : ControllerBase
 
         return result.MatchNoData(
             successStatusCode: 200,
-            includeBody: true,
-            message: "Book descriptions updated successfully",
             failure: ApiResults.ToProblemDetails);
     }
 
@@ -96,8 +84,6 @@ public class BookController : ControllerBase
 
         return result.MatchNoData(
             successStatusCode: 200,
-            includeBody: true,
-            message: "Prices updated successfully",
             failure: ApiResults.ToProblemDetails);
     }
 
@@ -108,8 +94,6 @@ public class BookController : ControllerBase
 
         return result.Match(
             successStatusCode: 200,
-            includeBody: true,
-            message: "null",
             failure: ApiResults.ToProblemDetails);
     }
 
@@ -120,8 +104,6 @@ public class BookController : ControllerBase
 
         return result.Match(
             successStatusCode: 200,
-            includeBody: true,
-            message: "null",
             failure: ApiResults.ToProblemDetails);
     }
 
@@ -132,8 +114,6 @@ public class BookController : ControllerBase
 
         return result.Match(
             successStatusCode: 200,
-            includeBody: true,
-            message: "null",
             failure: ApiResults.ToProblemDetails);
     }
 }

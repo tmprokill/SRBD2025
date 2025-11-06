@@ -322,7 +322,7 @@ END;
 --Functions
 -- Написати функцію для таблиці Books підрахувати кількість рядків із значенням поля Price більше середнього. 
 GO
-CREATE OR ALTER FUNCTION count_greater_than_avg_price()
+CREATE OR ALTER FUNCTION dbo.count_greater_than_avg_price()
     RETURNS INT
 AS
 BEGIN
@@ -340,7 +340,7 @@ END;
 -- Написати функцію для таблиці Books щоб знайти кількість рядків 
 -- із значенням поля Price більше параметру що приходить до функції. 
 GO
-CREATE OR ALTER FUNCTION count_books_more_price_than
+CREATE OR ALTER FUNCTION dbo.count_books_more_price_than
 (
     @new_price INT
 )
@@ -357,29 +357,25 @@ BEGIN
 
     RETURN @temp_count;
 END;
-
 -- Адаптоване завдання: Створити функцію, що за параметром назвою міста, повертає кількість читачів з цього міста
 GO
-CREATE OR ALTER FUNCTION CountReadersFromCity
+CREATE OR ALTER FUNCTION dbo.CountReadersFromCity
 (
-    @CityName varchar
+    @CityName NVARCHAR(255)
 )
     RETURNS INT
 AS
 BEGIN
-    DECLARE @result_count INT;
-
-    SET @result_count = (
-        SELECT COUNT(*) FROM dbo.Readers
-        WHERE Address LIKE ('%' + @CityName + '%')
-    )
-
-    RETURN @result_count;
+    RETURN (
+        SELECT COUNT(*)
+        FROM dbo.Readers
+        WHERE CHARINDEX(@CityName, Address) > 0
+    );
 END;
 
 --Functions with cursors 
 GO
-CREATE OR ALTER FUNCTION fn_GetEverySecondPopularBook (@MinQuantity INT)
+CREATE OR ALTER FUNCTION dbo.fn_GetEverySecondPopularBook (@MinQuantity INT)
     RETURNS @ResultTable TABLE (
                                    BookTitle NVARCHAR(100),
                                    TotalSold INT,

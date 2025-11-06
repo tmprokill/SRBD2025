@@ -28,8 +28,6 @@ public class BorrowingController : ControllerBase
 
         return result.Match(
             successStatusCode: 200,
-            includeBody: true,
-            message: "null",
             failure: ApiResults.ToProblemDetails);
     }
 
@@ -40,8 +38,6 @@ public class BorrowingController : ControllerBase
 
         return result.MatchNoData(
             successStatusCode: 201,
-            includeBody: false,
-            message: "Borrowing created successfully",
             failure: ApiResults.ToProblemDetails);
     }
 
@@ -52,8 +48,6 @@ public class BorrowingController : ControllerBase
 
         return result.MatchNoData(
             successStatusCode: 200,
-            includeBody: false,
-            message: "Borrowing finalized successfully",
             failure: ApiResults.ToProblemDetails);
     }
 }

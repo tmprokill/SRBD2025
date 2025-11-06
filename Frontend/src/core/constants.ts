@@ -19,6 +19,17 @@ export const ThemeConstants = {
   DARK: "dark"
 };
 
+export const languageDropdownOptions = [
+  {
+    option: LanguageConstants.ENGLISH,
+    label: "English",
+  },
+  {
+    option: LanguageConstants.UKRAINIAN,
+    label: "Українська",
+  },
+];
+
 export const Routes = {
   LOGIN: "/login",
   REGISTER: "/register",
@@ -29,4 +40,4 @@ export const Controllers = {
   Auth: "/Auth"
 };
 
-export const baseUrl = 'http://localhost:5148';
+export const baseUrl = 'http://localhost:5148/api';

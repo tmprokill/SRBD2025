@@ -22,8 +22,6 @@ public class BookCopyController : ControllerBase
 
         return result.Match(
             successStatusCode: 200,
-            includeBody: true,
-            message: "null",
             failure: ApiResults.ToProblemDetails);
     }
 }

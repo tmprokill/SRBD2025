@@ -23,8 +23,6 @@ public class SalesController : ControllerBase
 
         return result.Match(
             successStatusCode: 200,
-            includeBody: true,
-            message: "null",
             failure: ApiResults.ToProblemDetails);
     }
 
@@ -35,8 +33,6 @@ public class SalesController : ControllerBase
 
         return result.MatchNoData(
             successStatusCode: 201,
-            includeBody: true,
-            message: "Sale created successfully",
             failure: ApiResults.ToProblemDetails);
     }
 
@@ -47,8 +43,6 @@ public class SalesController : ControllerBase
 
         return result.MatchNoData(
             successStatusCode: 200,
-            includeBody: true,
-            message: "Sale updated successfully",
             failure: ApiResults.ToProblemDetails);
     }
 
@@ -59,8 +53,6 @@ public class SalesController : ControllerBase
 
         return result.MatchNoData(
             successStatusCode: 204,
-            includeBody: true,
-            message: "Sale deleted successfully",
             failure: ApiResults.ToProblemDetails);
     }
 }

@@ -1,14 +1,16 @@
 import "./App.css";
 import { Route, Routes } from "react-router";
 import HomePage from "./features/home/components/homepage";
-import LoginPage from "./features/auth/login/loginpage";
 import { Header } from "./components/layout/header/header";
 import { Footer } from "./components/layout/footer/footer";
-import ExternalLoginCallbackPage from "./features/auth/login/externalLoginCallbackPage";
+import ReaderDetailsPage from "./features/readers/pages/ReaderDetailsPage";
+import ReadersDashboardPage from "./features/readers/pages/ReadersDashboardPage";
+import ReaderFormPage from "./features/readers/pages/ReaderFormPage";
+import BooksDashboardPage from "./features/books/pages/BooksDashboardPage";
+import BookDetailsPage from "./features/books/pages/BookDetailsPage";
+import BookFormPage from "./features/books/pages/BookFormPage";
 
 function App() {
-
-
   return (
     <>
       <div className="min-h-screen flex flex-col">
@@ -16,8 +18,14 @@ function App() {
         <main className="flex flex-1">
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/external-callback" element={<ExternalLoginCallbackPage />} />
+            <Route path="/readers" element={<ReadersDashboardPage />} />
+            <Route path="/readers/:readerId" element={<ReaderDetailsPage />} />
+            <Route path="/readers/add" element={<ReaderFormPage />} />
+            <Route path="/readers/edit/:readerId" element={<ReaderFormPage />} />
+            <Route path="/books" element={<BooksDashboardPage />} />
+            <Route path="/books/:bookId" element={<BookDetailsPage />} />
+            <Route path="/books/add" element={<BookFormPage />} />
+            <Route path="/books/edit/:bookId" element={<BookFormPage />} />
           </Routes>
         </main>
       </div>

@@ -1,4 +1,179 @@
 {
+  "readers": {
+    "title": "Readers Management",
+    "subtitle": "Manage library readers and their information",
+    "table": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone Number",
+      "address": "Address",
+      "actions": "Actions"
+    },
+    "actions": {
+      "addNew": "Add New Reader",
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "cityCounter": {
+      "label": "Readers from City",
+      "placeholder": "Enter city name",
+      "button": "Count"
+    },
+    "messages": {
+      "noReaders": "No readers found. Add your first reader to get started.",
+      "confirm-delete": "Are you sure you want to delete this reader?",
+      "delete-success": "Reader deleted successfully",
+      "add-success": "Reader added successfully",
+      "update-success": "Reader updated successfully",
+      "enter-city": "Please enter a city name",
+      "count-success": "Found {{count}} reader(s) from {{city}}"
+    },
+    "details": {
+      "title": "Reader Details",
+      "subtitle": "Complete information about the reader",
+      "personalInfo": "Personal Information",
+      "contactInfo": "Contact Information",
+      "statistics": "Statistics",
+      "registrationDate": "Registration Date",
+      "borrowedBooks": "Books Borrowed"
+    },
+    "form": {
+      "addTitle": "Add New Reader",
+      "addSubtitle": "Fill in the information below to add a new reader",
+      "editTitle": "Edit Reader",
+      "editSubtitle": "Update the reader information",
+      "sections": {
+        "personalInfo": "Personal Information",
+        "contactInfo": "Contact Information"
+      },
+      "errors": {
+        "required": "is required",
+        "phone-invalid": "Phone number must be between 10 and 15 digits"
+      }
+    },
+    "fields": {
+      "fullName": "Full Name",
+      "phone": "Phone Number",
+      "address": "Address"
+    }
+  },
+  "books": {
+    "title": "Books Management",
+    "subtitle": "Manage library books and their information",
+    "table": {
+      "title": "Title",
+      "author": "Author",
+      "genre": "Genre",
+      "price": "Price",
+      "quantity": "Quantity",
+      "actions": "Actions",
+      "authorId": "Author ID",
+      "genreId": "Genre ID"
+    },
+    "actions": {
+      "addNew": "Add New Book",
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "operations": {
+      "updateDescription": {
+        "title": "Update Descriptions by Price",
+        "description": "Update book descriptions based on price criteria",
+        "button": "Update Descriptions"
+      },
+      "cutPrice": {
+        "title": "Cut Price",
+        "percentPlaceholder": "Percent (e.g., 10)",
+        "minSalesPlaceholder": "Min Sales Value",
+        "button": "Cut Price"
+      },
+      "countAvg": {
+        "title": "Count Greater Than Avg Price",
+        "description": "Count books with price greater than average",
+        "button": "Count"
+      },
+      "countPrice": {
+        "title": "Count Books More Price Than",
+        "placeholder": "Enter price",
+        "button": "Count"
+      },
+      "secondPopular": {
+        "title": "Get Every Second Most Popular Book",
+        "placeholder": "Min Total Sold",
+        "button": "Get Book"
+      }
+    },
+    "messages": {
+      "noBooks": "No books found. Add your first book to get started.",
+      "confirm-delete": "Are you sure you want to delete this book?",
+      "delete-success": "Book deleted successfully",
+      "add-success": "Book added successfully",
+      "update-success": "Book updated successfully",
+      "update-description-success": "Book descriptions updated successfully",
+      "cut-price-success": "Prices cut successfully",
+      "count-avg-success": "Found {{count}} book(s) with price greater than average",
+      "count-price-success": "Found {{count}} book(s) with price more than ${{price}}",
+      "second-popular-success": "Second popular book: {{title}} (Total sold: {{totalSold}})",
+      "invalid-input": "Please enter valid numbers",
+      "enter-price": "Please enter a valid price",
+      "enter-min-sold": "Please enter a valid minimum total sold"
+    },
+    "details": {
+      "title": "Book Details",
+      "subtitle": "Complete information about the book",
+      "basicInfo": "Basic Information",
+      "authorInfo": "Author Information",
+      "genreInfo": "Genre Information"
+    },
+    "form": {
+      "addTitle": "Add New Book",
+      "addSubtitle": "Fill in the information below to add a new book",
+      "editTitle": "Edit Book",
+      "editSubtitle": "Update the book information",
+      "selectAuthor": "Select an author...",
+      "selectGenre": "Select a genre...",
+      "sections": {
+        "basicInfo": "Basic Information",
+        "pricingInventory": "Pricing and Inventory",
+        "description": "Description"
+      },
+      "errors": {
+        "required": "is required",
+        "price-negative": "Price cannot be negative",
+        "quantity-negative": "Quantity cannot be negative",
+        "quantity-integer": "Quantity must be a whole number",
+        "authorId-required": "Author ID must be greater than 0",
+        "genreId-required": "Genre ID must be greater than 0"
+      }
+    },
+    "fields": {
+      "title": "Title",
+      "author": "Author",
+      "authorId": "Author ID",
+      "genre": "Genre",
+      "genreId": "Genre ID",
+      "price": "Price",
+      "quantity": "Quantity",
+      "description": "Description",
+      "bookId": "Book ID",
+      "pseudonym": "Pseudonym",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "genreName": "Genre Name",
+      "genreDescription": "Genre Description"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "saving": "Saving...",
+    "back": "Back",
+    "cancel": "Cancel",
+    "create": "Create",
+    "update": "Update",
+    "save": "Save"
+  },
   "header": {
     "buttons": {
       "register-button": "Register",
@@ -11,78 +186,78 @@
   },
   "auth": {
     "errors": {
-      "unauthorized": "Please, login into the system"
+      "unauthorized": "Please sign in"
     },
     "login": {
       "placeholders": {
-        "login": "Enter the login",
-        "password": "Enter the password"
+        "login": "Enter username or email",
+        "password": "Enter password"
       },
       "buttons": {
-        "login-submit": "Press to login into your account",
-        "forgot-password": "Forgot your password?"
+        "login-submit": "Sign in to your account",
+        "forgot-password": "Forgot password?"
       },
       "errors": {
-        "login-required": "The login field is required",
-        "password-required": "The password field is required"
+        "login-required": "Login is required",
+        "password-required": "Password is required"
       },
       "messages": {
-        "successful-login": "You've successfully authenticated"
+        "successful-login": "You have successfully signed in"
       }
     },
     "register": {
       "placeholders": {
-        "email": "Enter your email",
+        "email": "Enter your email address",
         "username": "Choose a username",
-        "password": "Enter your password",
-        "confirm-password": "Confirm your password"
+        "password": "Enter password",
+        "confirm-password": "Confirm password"
       },
       "buttons": {
         "register-submit": "Register"
       },
       "errors": {
-        "email-invalid": "Email is invalid",
+        "email-invalid": "Email is not valid",
         "email-required": "Email is required",
         "username-required": "Username is required",
         "password-required": "Password is required",
-        "confirm-password-required": "Confirm password is required",
-        "confirm-password-must-match": "Confirm password must match"
+        "confirm-password-required": "Password confirmation is required",
+        "confirm-password-must-match": "Passwords must match"
       },
       "messages": {
-        "successful-registration": "Successful registration, now confirm the account and proceed with authorization"
+        "successful-registration": "Registration successful, please confirm your email and sign in"
       }
     },
     "forgotPassword": {
-      "placeholders": { "email": "Enter your email" },
-      "buttons": { "submit": "Submit the request" },
-      "errors": { "email-required": "Email is required" },
+      "placeholders": { "email": "Enter your email address" },
+      "buttons": { "submit": "Send password reset request" },
+      "errors": { "email-required": "This field is required" },
       "messages": {
-        "successful-request": "The request with a link to change the password was sent to your email"
+        "successful-request": "Password reset request has been sent to your email."
       }
     },
     "changePassword": {
       "placeholders": {
-        "newPassword": "Enter your new password",
-        "confirm-password": "Confirm your password"
+        "newPassword": "Enter new password",
+        "confirm-password": "Confirm password"
       },
-      "buttons": { "submit": "Submit" },
+      "buttons": { "submit": "Change password" },
       "errors": {
-        "missing-params": "Your link is invalid. Try again later.",
-        "newPassword-required": "The new password is required",
-        "confirm-password-must-match": "Confirm password must match"
+        "missing-params": "Your link is invalid, please try again later.",
+        "newPassword-required": "New password is required",
+        "confirm-password-must-match": "Passwords must match"
       },
       "messages": {
-        "successful-change": "Your password was successfully changed"
+        "successful-change": "Your password has been changed successfully"
       }
     },
     "externalLoginCallback": {
       "errors": {
-        "not-valid-data": "Your link is invalid. Try again later.",
-        "not-valid-token": "Token that you've provided is not valid"
+        "not-valid-data": "Your link is invalid, please try again later.",
+        "not-valid-token": "Your token is invalid"
       },
       "messages": {
-        "success": "You've been successfully authorized",
-        "loading": "Authorization in progress.."
+        "success": "You have been successfully authenticated",
+        "loading": "Authentication in progress.."
       }
     }
   },
@@ -93,28 +268,34 @@
     }
   },
   "apiErrors": {
+    "readers": {
+      "READER_NOT_FOUND": "Reader not found"
+    },
     "auth": {
-      "user-google-info-missing": "Failed to retrieve information from the Google account",
-      "user-not-assigned-external-login": "The user was not linked to the external login",
-      "user-password-not-changed": "The user's password was not changed",
-      "user-not-found": "User not found",
-      "user-validation": "Server-side validation error",
-      "user-roles-not-assigned": "Failed to assign roles to the user",
-      "user-email-confirmation": "User's email address is not confirmed",
-      "user-account-locked": "User account is locked",
-      "user-credentials-invalid": "Invalid credentials, please try again",
-      "user-token-invalid": "Invalid or expired refresh token",
-      "user-username-not-unique": "The username is not unique",
-      "user-email-not-unique": "The email is not unique"
+      "USER_GOOGLE_INFO_MISSING": "Failed to retrieve information from the Google account",
+      "USER_NOT_ASSIGNED_EXTERNAL_LOGIN": "The user was not linked to the external login",
+      "USER_PASSWORD_NOT_CHANGED": "The user's password was not changed",
+      "USER_NOT_FOUND": "User not found",
+      "USER_VALIDATION": "Server-side validation error",
+      "USER_ROLES_NOT_ASSIGNED": "Failed to assign roles to the user",
+      "USER_EMAIL_CONFIRMATION": "User's email address is not confirmed",
+      "USER_ACCOUNT_LOCKED": "User account is locked",
+      "USER_CREDENTIALS_INVALID": "Invalid credentials, please try again",
+      "USER_TOKEN_INVALID": "Invalid or expired refresh token",
+      "USER_USERNAME_NOT_UNIQUE": "The username is not unique",
+      "USER_EMAIL_NOT_UNIQUE": "The email is not unique"
     },
     "common": {
-      "repository-not-found-error": "Record not found in the data repository",
-      "repository-update-error": "Failed to update the record in the data repository",
-      "repository-add-error": "Failed to add the record to the data repository",
-      "repository-delete-error": "Failed to delete the record from the data repository",
-      "email-not-sent": "Failed to send the email",
-      "email-invalid-or-expired-token": "Invalid or expired email token",
-      "application-error": "An application error occurred, please try again later"
+      "INVALID_DATA": "Invalid data provided",
+      "DATABASE_ERROR": "An error occurred while processing your request",
+      "REPOSITORY_NOT_FOUND_ERROR": "Record not found in the data repository",
+      "REPOSITORY_UPDATE_ERROR": "Failed to update the record in the data repository",
+      "REPOSITORY_ADD_ERROR": "Failed to add the record to the data repository",
+      "REPOSITORY_DELETE_ERROR": "Failed to delete the record from the data repository",
+      "REPOSITORY_CASCADE_ERROR": "Failed to delete as it has dependent items",
+      "EMAIL_NOT_SENT": "Failed to send the email",
+      "EMAIL_INVALID_OR_EXPIRED_TOKEN": "Invalid or expired email token",
+      "APPLICATION_ERROR": "An application error occurred, please try again later"
     }
   }
 }

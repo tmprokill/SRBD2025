@@ -35,6 +35,7 @@ public static class ConfigureBuilder
         services.AddScoped<IBookCopyRepository, BookCopyRepository>();
         services.AddScoped<IBookRepository, BookRepository>();
         services.AddScoped<IBorrowingRepository, BorrowingRepository>();
+        services.AddScoped<IGenreRepository, GenreRepository>();
         services.AddScoped<IReaderRepository, ReaderRepository>();
         services.AddScoped<ISalesLogRepository, SalesLogRepository>();
         services.AddScoped<ISalesRepository, SalesRepository>();

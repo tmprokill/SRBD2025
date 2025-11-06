@@ -5,17 +5,17 @@ public static class RepositoryErrors<T>
     private static readonly string EntityName = typeof(T).Name;
 
     public static readonly Error NotFoundError =
-        Error.NotFound($"common.repository-not-found-error", $"{EntityName} not found");
+        Error.NotFound($"common.REPOSITORY_NOT_FOUND_ERROR", $"{EntityName} not found");
 
     public static readonly Error UpdateError =
-        Error.Conflict($"common.repository-update-error", $"{EntityName} couldn't be updated");
+        Error.Conflict($"common.REPOSITORY_UPDATE_ERROR", $"{EntityName} couldn't be updated");
 
     public static readonly Error AddError =
-        Error.Conflict($"common.repository-add-error", $"{EntityName} couldn't be added");
+        Error.Conflict($"common.REPOSITORY_ADD_ERROR", $"{EntityName} couldn't be added");
 
     public static readonly Error DeleteError =
-        Error.NotFound($"common.repository-delete-error", $"{EntityName} couldn't be deleted");
+        Error.NotFound($"common.REPOSITORY_DELETE_ERROR", $"{EntityName} couldn't be deleted");
     
     public static readonly Error CascadeError =
-        Error.NotFound($"common.repository-cascade-error", $"{EntityName} has dependencies and cannot be deleted");
+        Error.NotFound($"common.REPOSITORY_CASCADE_ERROR", $"{EntityName} has dependencies and cannot be deleted");
 }

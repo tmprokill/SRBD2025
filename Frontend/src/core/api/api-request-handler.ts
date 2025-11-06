@@ -10,7 +10,6 @@ import { ApiResponse, ProblemDetails } from "./types";
 
       return {
         success: true,
-        message: response.data.message,
         data: response.data.data,
       };
     } catch (err) {
