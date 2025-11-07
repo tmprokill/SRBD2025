@@ -16,6 +16,20 @@ public class SalesController : ControllerBase
         _salesRepository = salesRepository;
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GetSales(
+        [FromQuery] string? readerName = null,
+        [FromQuery] string? bookTitle = null,
+        [FromQuery] int page = 0,
+        [FromQuery] int pageSize = 10)
+    {
+        var result = await _salesRepository.GetSalesAsync(readerName, bookTitle, page, pageSize);
+
+        return result.Match(
+            successStatusCode: 200,
+            failure: ApiResults.ToProblemDetails);
+    }
+
     [HttpGet("{saleId}")]
     public async Task<IActionResult> GetSaleDetails(int saleId)
     {

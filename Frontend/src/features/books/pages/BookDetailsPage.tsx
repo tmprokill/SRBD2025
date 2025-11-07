@@ -51,166 +51,164 @@ function BookDetailsPage() {
     <div className="min-h-screen w-full bg-gray-50 p-6">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="mb-6">
+        <div className="mb-6 flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">
+              {t("books.details.title")}
+            </h1>
+            <p className="text-gray-600 mt-1">{t("books.details.subtitle")}</p>
+          </div>
           <button
             onClick={() => navigate("/books")}
-            className="text-blue-600 hover:text-blue-800 mb-4 flex items-center gap-2"
+            className="px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 flex items-center gap-2"
           >
             <span>←</span> {t("common.back")}
           </button>
-          <h1 className="text-3xl font-bold text-gray-900">
-            {t("books.details.title")}
-          </h1>
-          <p className="text-gray-600 mt-1">{t("books.details.subtitle")}</p>
         </div>
 
         {/* Book Details Card */}
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <div className="space-y-6">
-            {/* Basic Information */}
-            <div>
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">
-                {t("books.details.basicInfo")}
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    {t("books.fields.title")}
-                  </label>
-                  <p className="mt-1 text-sm text-gray-900">{book.title}</p>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    {t("books.fields.price")}
-                  </label>
-                  <p className="mt-1 text-sm text-gray-900">
-                    ${book.price.toFixed(2)}
-                  </p>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    {t("books.fields.quantity")}
-                  </label>
-                  <p className="mt-1 text-sm text-gray-900">{book.quantity}</p>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    {t("books.fields.bookId")}
-                  </label>
-                  <p className="mt-1 text-sm text-gray-900">{book.bookID}</p>
-                </div>
+        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+          {/* Header Section */}
+          <div className="bg-gradient-to-r from-indigo-600 to-indigo-700 px-6 py-8">
+            <h2 className="text-2xl font-bold text-white">{book.title}</h2>
+            <p className="text-indigo-100 mt-1">
+              {t("books.fields.bookId")}: {book.bookID}
+            </p>
+          </div>
+
+          {/* Details Section */}
+          <div className="p-6">
+            {/* Key Information Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="bg-blue-50 rounded-lg p-4">
+                <p className="text-sm text-blue-600 font-medium">
+                  {t("books.fields.price")}
+                </p>
+                <p className="text-2xl font-bold text-blue-900 mt-1">
+                  ${book.price.toFixed(2)}
+                </p>
+              </div>
+              <div className="bg-green-50 rounded-lg p-4">
+                <p className="text-sm text-green-600 font-medium">
+                  {t("books.fields.quantity")}
+                </p>
+                <p className="text-2xl font-bold text-green-900 mt-1">
+                  {book.quantity}
+                </p>
               </div>
             </div>
 
-            {/* Author Information */}
-            <div>
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">
-                {t("books.details.authorInfo")}
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    {t("books.fields.authorId")}
-                  </label>
-                  <p className="mt-1 text-sm text-gray-900">{book.authorID}</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Author Information */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                  {t("books.details.authorInfo")}
+                </h3>
+                <div className="space-y-3">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-500">
+                      {t("books.fields.authorId")}
+                    </label>
+                    <p className="mt-1 text-gray-900">{book.authorID}</p>
+                  </div>
+                  {book.author && (
+                    <>
+                      {book.author.pseudonym && (
+                        <div>
+                          <label className="block text-sm font-medium text-gray-500">
+                            {t("books.fields.pseudonym")}
+                          </label>
+                          <p className="mt-1 text-gray-900">
+                            {book.author.pseudonym}
+                          </p>
+                        </div>
+                      )}
+                      {book.author.firstName && (
+                        <div>
+                          <label className="block text-sm font-medium text-gray-500">
+                            {t("books.fields.firstName")}
+                          </label>
+                          <p className="mt-1 text-gray-900">
+                            {book.author.firstName}
+                          </p>
+                        </div>
+                      )}
+                      {book.author.lastName && (
+                        <div>
+                          <label className="block text-sm font-medium text-gray-500">
+                            {t("books.fields.lastName")}
+                          </label>
+                          <p className="mt-1 text-gray-900">
+                            {book.author.lastName}
+                          </p>
+                        </div>
+                      )}
+                    </>
+                  )}
                 </div>
-                {book.author && (
-                  <>
-                    {book.author.pseudonym && (
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700">
-                          {t("books.fields.pseudonym")}
-                        </label>
-                        <p className="mt-1 text-sm text-gray-900">
-                          {book.author.pseudonym}
-                        </p>
-                      </div>
-                    )}
-                    {book.author.firstName && (
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700">
-                          {t("books.fields.firstName")}
-                        </label>
-                        <p className="mt-1 text-sm text-gray-900">
-                          {book.author.firstName}
-                        </p>
-                      </div>
-                    )}
-                    {book.author.lastName && (
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700">
-                          {t("books.fields.lastName")}
-                        </label>
-                        <p className="mt-1 text-sm text-gray-900">
-                          {book.author.lastName}
-                        </p>
-                      </div>
-                    )}
-                  </>
-                )}
               </div>
-            </div>
 
-            {/* Genre Information */}
-            <div>
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">
-                {t("books.details.genreInfo")}
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    {t("books.fields.genreId")}
-                  </label>
-                  <p className="mt-1 text-sm text-gray-900">{book.genreID}</p>
-                </div>
-                {book.genre && (
-                  <>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">
-                        {t("books.fields.genreName")}
-                      </label>
-                      <p className="mt-1 text-sm text-gray-900">
-                        {book.genre.genreName}
-                      </p>
-                    </div>
-                    {book.genre.description && (
-                      <div className="md:col-span-2">
-                        <label className="block text-sm font-medium text-gray-700">
-                          {t("books.fields.genreDescription")}
+              {/* Genre Information */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                  {t("books.details.genreInfo")}
+                </h3>
+                <div className="space-y-3">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-500">
+                      {t("books.fields.genreId")}
+                    </label>
+                    <p className="mt-1 text-gray-900">{book.genreID}</p>
+                  </div>
+                  {book.genre && (
+                    <>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-500">
+                          {t("books.fields.genreName")}
                         </label>
-                        <p className="mt-1 text-sm text-gray-900">
-                          {book.genre.description}
+                        <p className="mt-1 text-gray-900">
+                          {book.genre.genreName}
                         </p>
                       </div>
-                    )}
-                  </>
-                )}
+                      {book.genre.description && (
+                        <div>
+                          <label className="block text-sm font-medium text-gray-500">
+                            {t("books.fields.genreDescription")}
+                          </label>
+                          <p className="mt-1 text-gray-900">
+                            {book.genre.description}
+                          </p>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
               </div>
             </div>
 
             {/* Description */}
             {book.description && (
-              <div>
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">
+              <div className="mt-6 pt-6 border-t border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">
                   {t("books.fields.description")}
-                </h2>
-                <p className="text-sm text-gray-700 whitespace-pre-wrap">
+                </h3>
+                <p className="text-gray-700 whitespace-pre-wrap leading-relaxed">
                   {book.description}
                 </p>
               </div>
             )}
 
             {/* Actions */}
-            <div className="flex gap-3 pt-4 border-t border-gray-200">
+            <div className="mt-8 pt-6 border-t border-gray-200 flex gap-3">
               <button
                 onClick={() => navigate(`/books/edit/${book.bookID}`)}
-                className="px-6 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 font-medium"
+                className="px-6 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 font-medium transition-colors"
               >
                 {t("books.actions.edit")}
               </button>
               <button
                 onClick={() => navigate("/books")}
-                className="px-6 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 font-medium"
+                className="px-6 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 font-medium transition-colors"
               >
                 {t("common.back")}
               </button>

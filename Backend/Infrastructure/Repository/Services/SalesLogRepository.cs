@@ -55,7 +55,7 @@ public class SalesLogRepository : ISalesLogRepository
                 sqlBuilder.Append(" WHERE ").Append(string.Join(" AND ", whereClauses));
             }
 
-            sqlBuilder.Append(" ORDER BY ModifyDate DESC OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY");
+            sqlBuilder.Append(" ORDER BY Id ASC OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY");
 
             parameters.Add("Offset", page * pageSize);
             parameters.Add("PageSize", pageSize);

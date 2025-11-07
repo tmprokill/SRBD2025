@@ -2,13 +2,16 @@ import "./App.css";
 import { Route, Routes } from "react-router";
 import HomePage from "./features/home/components/homepage";
 import { Header } from "./components/layout/header/header";
-import { Footer } from "./components/layout/footer/footer";
 import ReaderDetailsPage from "./features/readers/pages/ReaderDetailsPage";
 import ReadersDashboardPage from "./features/readers/pages/ReadersDashboardPage";
 import ReaderFormPage from "./features/readers/pages/ReaderFormPage";
 import BooksDashboardPage from "./features/books/pages/BooksDashboardPage";
 import BookDetailsPage from "./features/books/pages/BookDetailsPage";
 import BookFormPage from "./features/books/pages/BookFormPage";
+import BorrowingsDashboardPage from "./features/borrowings/pages/BorrowingsDashboardPage";
+import BorrowingFormPage from "./features/borrowings/pages/BorrowingFormPage";
+import SalesDashboardPage from "./features/sales/pages/SalesDashboardPage";
+import SaleFormPage from "./features/sales/pages/SaleFormPage";
 
 function App() {
   return (
@@ -26,10 +29,15 @@ function App() {
             <Route path="/books/:bookId" element={<BookDetailsPage />} />
             <Route path="/books/add" element={<BookFormPage />} />
             <Route path="/books/edit/:bookId" element={<BookFormPage />} />
+            <Route path="/borrowings" element={<BorrowingsDashboardPage />} />
+            <Route path="/borrowings/add" element={<BorrowingFormPage />} />
+            <Route path="/sales" element={<SalesDashboardPage />} />
+            <Route path="/sales/add" element={<SaleFormPage />} />
+            <Route path="/sales/edit/:saleId" element={<SaleFormPage />} />
           </Routes>
         </main>
       </div>
-      <Footer />
+     
     </>
   );
 }

@@ -86,7 +86,7 @@
       "cutPrice": {
         "title": "Cut Price",
         "percentPlaceholder": "Percent (e.g., 10)",
-        "minSalesPlaceholder": "Min Sales Value",
+        "minSalesPlaceholder": "Min Sales Revenue",
         "button": "Cut Price"
       },
       "countAvg": {
@@ -95,14 +95,33 @@
         "button": "Count"
       },
       "countPrice": {
-        "title": "Count Books More Price Than",
+        "title": "Count of Books with More Price Than",
         "placeholder": "Enter price",
         "button": "Count"
       },
       "secondPopular": {
         "title": "Get Every Second Most Popular Book",
         "placeholder": "Min Total Sold",
-        "button": "Get Book"
+        "button": "Get Book",
+        "modalTitle": "Every Second Most Popular Book",
+        "noBooks": "No popular books found",
+        "table": {
+          "title": "Book Title",
+          "author": "Author",
+          "totalSold": "Total Sold"
+        }
+      },
+      "bookCopies": {
+        "title": "List of every third updated book populated by a trigger",
+        "description": "Get the list of book copies that were updated by a trigger",
+        "button": "Get Book Copies",
+        "modalTitle": "Book Copies - Every Third Updated",
+        "noCopies": "No book copies found",
+        "table": {
+          "title": "Title",
+          "oldPrice": "Old Price",
+          "newPrice": "New Price"
+        }
       }
     },
     "messages": {
@@ -165,6 +184,145 @@
       "genreDescription": "Genre Description"
     }
   },
+  "borrowings": {
+    "title": "Borrowings Management",
+    "subtitle": "Manage book borrowings and returns",
+    "table": {
+      "id": "ID",
+      "reader": "Reader",
+      "book": "Book",
+      "borrowDate": "Borrow Date",
+      "returnDate": "Return Date",
+      "quantity": "Quantity",
+      "actions": "Actions",
+      "overdue": "Overdue",
+      "notReturnedYet": "Not returned yet",
+      "returned": "Returned"
+    },
+    "actions": {
+      "addNew": "Add New Borrowing",
+      "finalize": "Finalize"
+    },
+    "filters": {
+      "title": "Filters",
+      "readerName": "Reader Name",
+      "bookTitle": "Book Title",
+      "readerNamePlaceholder": "Search by reader name",
+      "bookTitlePlaceholder": "Search by book title",
+      "apply": "Apply",
+      "clear": "Clear"
+    },
+    "messages": {
+      "noBorrowings": "No borrowings found.",
+      "add-success": "Borrowing added successfully",
+      "finalize-success": "Borrowing finalized successfully",
+      "confirm-finalize": "Are you sure you want to finalize this borrowing?"
+    },
+    "form": {
+      "addTitle": "Add New Borrowing",
+      "addSubtitle": "Fill in the information below to create a new borrowing",
+      "reader": "Reader",
+      "book": "Book",
+      "quantity": "Quantity",
+      "available": "Available",
+      "readerPlaceholder": "Select a reader...",
+      "bookPlaceholder": "Select a book...",
+      "submit": "Create Borrowing",
+      "errors": {
+        "readerRequired": "Please select a reader",
+        "bookRequired": "Please select a book",
+        "quantityRequired": "Quantity is required",
+        "quantityMin": "Quantity must be at least 1",
+        "selectRequired": "Please select both reader and book",
+        "quantityExceedsAvailable": "Quantity cannot exceed available stock ({{available}})"
+      }
+    }
+  },
+  "sales": {
+    "title": "Sales Management",
+    "subtitle": "Manage book sales and sales logs",
+    "tabs": {
+      "sales": "Sales",
+      "logs": "Sales Logs"
+    },
+    "table": {
+      "id": "ID",
+      "reader": "Reader",
+      "book": "Book",
+      "saleDate": "Sale Date",
+      "quantity": "Quantity",
+      "price": "Price",
+      "total": "Total",
+      "actions": "Actions"
+    },
+    "logs": {
+      "table": {
+        "id": "ID",
+        "saleId": "Sale ID",
+        "newQuantity": "New Quantity",
+        "newPrice": "New Price",
+        "modifyDate": "Modify Date"
+      },
+      "messages": {
+        "noLogs": "No sales logs found."
+      }
+    },
+    "actions": {
+      "addNew": "Add New Sale",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "filters": {
+      "title": "Filters",
+      "readerName": "Reader Name",
+      "bookTitle": "Book Title",
+      "saleId": "Sale ID",
+      "fromDate": "From Date",
+      "toDate": "To Date",
+      "readerNamePlaceholder": "Search by reader name",
+      "bookTitlePlaceholder": "Search by book title",
+      "saleIdPlaceholder": "Enter sale ID",
+      "apply": "Apply",
+      "clear": "Clear"
+    },
+    "messages": {
+      "noSales": "No sales found.",
+      "add-success": "Sale added successfully",
+      "update-success": "Sale updated successfully",
+      "delete-success": "Sale deleted successfully",
+      "confirm-delete": "Are you sure you want to delete this sale?"
+    },
+    "form": {
+      "addTitle": "Add New Sale",
+      "addSubtitle": "Fill in the information below to create a new sale",
+      "editTitle": "Edit Sale",
+      "editSubtitle": "Update the sale information",
+      "reader": "Reader",
+      "book": "Book",
+      "saleDate": "Sale Date",
+      "quantity": "Quantity",
+      "price": "Price",
+      "bookPrice": "Book Price",
+      "totalAmount": "Total Amount",
+      "available": "Available",
+      "selectBookFirst": "Select a book first",
+      "readerPlaceholder": "Select a reader...",
+      "bookPlaceholder": "Select a book...",
+      "submit": "Create Sale",
+      "update": "Update Sale",
+      "errors": {
+        "readerRequired": "Please select a reader",
+        "bookRequired": "Please select a book",
+        "quantityRequired": "Quantity is required",
+        "quantityMin": "Quantity must be at least 1",
+        "quantityExceedsAvailable": "Quantity cannot exceed available stock ({{available}})",
+        "priceRequired": "Price is required",
+        "priceMin": "Price must be greater than 0",
+        "priceInvalid": "Price must be a valid positive number",
+        "selectRequired": "Please select both reader and book"
+      }
+    }
+  },
   "common": {
     "loading": "Loading...",
     "saving": "Saving...",
@@ -172,9 +330,21 @@
     "cancel": "Cancel",
     "create": "Create",
     "update": "Update",
-    "save": "Save"
+    "save": "Save",
+    "close": "Close",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page",
+    "of": "of"
   },
   "header": {
+    "nav": {
+      "home": "Home",
+      "readers": "Readers",
+      "books": "Books",
+      "borrowings": "Borrowings",
+      "sales": "Sales"
+    },
     "buttons": {
       "register-button": "Register",
       "login-button": "Login",
@@ -270,6 +440,16 @@
   "apiErrors": {
     "readers": {
       "READER_NOT_FOUND": "Reader not found"
+    },
+    "borrowings": {
+      "BOOK_NOT_FOUND": "Book not found",
+      "QUANTITY_EXCEEDS_AVAILABLE": "The quantity you are trying to borrow exceeds the available stock",
+      "BORROWING_NOT_FOUND": "Borrowing not found",
+      "BORROWING_ALREADY_RETURNED": "This borrowing has already been returned"
+    },
+    "sales": {
+      "NOT_WORKING_DAYS": "You cannot create or modify sales on weekends (Saturday and Sunday). Please try again during weekdays.",
+      "NOT_WORKING_HOURS": "You cannot create or modify sales outside working hours (9:00 AM - 6:00 PM). Please try again during business hours."
     },
     "auth": {
       "USER_GOOGLE_INFO_MISSING": "Failed to retrieve information from the Google account",

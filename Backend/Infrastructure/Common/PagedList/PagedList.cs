@@ -20,11 +20,4 @@ public class PagedList<T> : IPagedList<T>
     public int TotalCount { get; set; }
     
     public IEnumerable<T> Items { get; set; }
-
-    public static async Task<PagedList<T>> CreateAsync(IQueryable<T> source, int pageNumber, int pageSize)
-    {
-        // var count = await source.CountAsync();
-        // var items = await source.Skip(pageNumber * pageSize).Take(pageSize).ToListAsync();
-        return new PagedList<T>(new List<T>(), 0, pageNumber, pageSize);
-    }
 }

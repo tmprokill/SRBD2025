@@ -180,6 +180,10 @@ BEGIN
     IF ((SELECT COUNT(BookID) FROM dbo.Borrowings WHERE BorrowID = @BorrowId) = 0)
         BEGIN
             RAISERROR('Немає оренди з ID: %d', 16, 1, @BorrowId);
+        END
+    ELSE IF ((SELECT ReturnDate FROM dbo.Borrowings WHERE BorrowID = @BorrowId) IS NOT NULL)
+        BEGIN
+            RAISERROR('Оренда вже повернута', 16, 1, @BorrowId);
         END;
 
     --Повернення оренди

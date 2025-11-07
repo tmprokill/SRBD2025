@@ -2,7 +2,10 @@
 using Dapper;
 using Domain.DTOs;
 using Domain.Models;
+using Infrastructure.Common.Errors;
+using Infrastructure.Common.Errors.Borrowings;
 using Infrastructure.Common.Errors.Repository;
+using Infrastructure.Common.PagedList;
 using Infrastructure.Common.ResultPattern;
 using Infrastructure.Data;
 using Infrastructure.Repository.Interfaces;
@@ -19,7 +22,7 @@ public class BorrowingRepository : IBorrowingRepository
         _connectionFactory = connectionFactory;
     }
 
-    public async Task<Result<IEnumerable<Borrowing>>> GetBorrowingsAsync(int? readerId = null, int? bookId = null, int page = 0,
+    public async Task<Result<IPagedList<Borrowing>>> GetBorrowingsAsync(string? readerName = null, string? bookTitle = null, int page = 0,
         int pageSize = 10)
     {
         var sqlBuilder = new StringBuilder("""
@@ -31,27 +34,36 @@ public class BorrowingRepository : IBorrowingRepository
                                                LEFT JOIN Books b ON br.BookID = b.BookID
                                            """);
 
+        var countSqlBuilder = new StringBuilder("""
+                                                    SELECT COUNT(*)
+                                                    FROM Borrowings br
+                                                    LEFT JOIN Readers r ON br.ReaderID = r.ReaderId
+                                                    LEFT JOIN Books b ON br.BookID = b.BookID
+                                                """);
+
         var whereClauses = new List<string>();
         var parameters = new DynamicParameters();
 
-        if (readerId.HasValue)
+        if (!string.IsNullOrWhiteSpace(readerName))
         {
-            whereClauses.Add("r.ReaderId = @ReaderId");
-            parameters.Add("ReaderId", readerId);
+            whereClauses.Add("r.FullName LIKE @ReaderName");
+            parameters.Add("ReaderName", $"%{readerName}%");
         }
 
-        if (bookId.HasValue)
+        if (!string.IsNullOrWhiteSpace(bookTitle))
         {
-            whereClauses.Add("b.BookId = @BookId");
-            parameters.Add("BookId", bookId);
+            whereClauses.Add("b.Title LIKE @BookTitle");
+            parameters.Add("BookTitle", $"%{bookTitle}%");
         }
 
         if (whereClauses.Count > 0)
         {
-            sqlBuilder.Append(" WHERE ").Append(string.Join(" AND ", whereClauses));
+            var whereClause = " WHERE " + string.Join(" AND ", whereClauses);
+            sqlBuilder.Append(whereClause);
+            countSqlBuilder.Append(whereClause);
         }
 
-        sqlBuilder.Append(" ORDER BY BorrowDate DESC OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY");
+        sqlBuilder.Append(" ORDER BY BorrowID ASC OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY");
 
         parameters.Add("Offset", page * pageSize);
         parameters.Add("PageSize", pageSize);
@@ -59,6 +71,8 @@ public class BorrowingRepository : IBorrowingRepository
         using var connection = await _connectionFactory.CreateDbConnection();
         try
         {
+            var totalCount = await connection.QuerySingleAsync<int>(countSqlBuilder.ToString(), parameters);
+            
             var borrowings = await connection.QueryAsync<Borrowing, Reader, Book, Borrowing>(sqlBuilder.ToString(),
                 (borrowing, reader, book) =>
                 {
@@ -67,11 +81,12 @@ public class BorrowingRepository : IBorrowingRepository
                     return borrowing;
                 }, parameters, splitOn: "ReaderId, BookId");
 
-            return Result<IEnumerable<Borrowing>>.Success(borrowings);
+            var pagedList = new PagedList<Borrowing>(borrowings, totalCount, page, pageSize);
+            return Result<IPagedList<Borrowing>>.Success(pagedList);
         }
         catch (SqlException ex)
         {
-            return Result<IEnumerable<Borrowing>>.Failure(RepositoryErrors<Borrowing>.NotFoundError);
+            return Result<IPagedList<Borrowing>>.Failure(RepositoryErrors<Borrowing>.NotFoundError);
         }
     }
 
@@ -89,30 +104,39 @@ public class BorrowingRepository : IBorrowingRepository
                     BookId = borrowingDTO.BookID,
                     Quantity = borrowingDTO.Quantity,
                 });
-
-            if (result != 0)
-            {
-                return Result.Failure(RepositoryErrors<Borrowing>.AddError);
-            }
-            //Fix error handling from stored procedure
+            
             return Result.Success();
         }
         catch (SqlException ex)
         {
+            var errorMessage = ex.Message;
+            
+            // Check for specific error messages from stored procedure
+            if (errorMessage.Contains("Немає книги з ID") || errorMessage.Contains("No book with ID"))
+            {
+                return Result.Failure(BorrowingErrors.BookNotFound);
+            }
+            
+            if (errorMessage.Contains("Кількість, що ви намагаєтесь орендувати перевищує наявність") ||
+                errorMessage.Contains("Quantity exceeds available"))
+            {
+                return Result.Failure(BorrowingErrors.QuantityExceedsAvailable);
+            }
+            
             return Result.Failure(RepositoryErrors<Borrowing>.AddError);
         }
     }
 
     public async Task<Result> FinalizeBorrowingAsync(int borrowingId)
     {
-        const string finalizeBorrowingSql = "EXEC usp_Add_New_Borrowing @BorrowId";
+        const string finalizeBorrowingSql = "EXEC usp_FinalizeBorrowing @BorrowId";
 
         try
         {
             using var connection = await _connectionFactory.CreateDbConnection();
             var result = await connection.ExecuteAsync(finalizeBorrowingSql, param: new { BorrowId = borrowingId });
 
-            if (result != 0)
+            if (result == 0)
             {
                 return Result.Failure(RepositoryErrors<Borrowing>.UpdateError);
             }
@@ -121,6 +145,19 @@ public class BorrowingRepository : IBorrowingRepository
         }
         catch (SqlException ex)
         {
+            var errorMessage = ex.Message;
+            
+            // Check for specific error messages from stored procedure
+            if (errorMessage.Contains("Немає оренди з ID") || errorMessage.Contains("No borrowing with ID"))
+            {
+                return Result.Failure(BorrowingErrors.BorrowingNotFound);
+            }
+            
+            if (errorMessage.Contains("Оренда вже повернута") || errorMessage.Contains("Borrowing already returned"))
+            {
+                return Result.Failure(BorrowingErrors.BorrowingAlreadyReturned);
+            }
+            
             return Result.Failure(RepositoryErrors<Borrowing>.UpdateError);
         }
     }

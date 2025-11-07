@@ -304,7 +304,7 @@ export const useGetSecondPopularBook = () => {
 
   const getSecondPopularBook = async (
     minTotalSold: number
-  ): Promise<ApiResponse<SecondPopularBookResponse>> => {
+  ): Promise<ApiResponse<SecondPopularBookResponse[]>> => {
     setIsLoading(true);
     setError(null);
 

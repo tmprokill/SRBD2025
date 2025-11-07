@@ -19,12 +19,12 @@ public class BorrowingController : ControllerBase
     
     [HttpGet]
     public async Task<IActionResult> GetBorrowings(
-        [FromQuery] int? readerId = null,
-        [FromQuery] int? bookId = null,
+        [FromQuery] string? readerName = null,
+        [FromQuery] string? bookTitle = null,
         [FromQuery] int page = 0,
         [FromQuery] int pageSize = 10)
     {
-        var result = await _borrowingRepository.GetBorrowingsAsync(readerId, bookId, page, pageSize);
+        var result = await _borrowingRepository.GetBorrowingsAsync(readerName, bookTitle, page, pageSize);
 
         return result.Match(
             successStatusCode: 200,

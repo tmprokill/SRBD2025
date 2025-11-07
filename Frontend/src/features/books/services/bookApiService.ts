@@ -48,9 +48,9 @@ export interface BookListItem {
 }
 
 export interface SecondPopularBookResponse {
-  bookID: number;
-  title: string;
+  bookTitle: string;
   totalSold: number;
+  authorFullName: string;
 }
 
 export class BookApiService {
@@ -151,8 +151,8 @@ export class BookApiService {
 
   async getSecondPopularBookAsync(
     minTotalSold: number
-  ): Promise<ApiResponse<SecondPopularBookResponse>> {
-    const res = await apiRequest<SecondPopularBookResponse>({
+  ): Promise<ApiResponse<SecondPopularBookResponse[]>> {
+    const res = await apiRequest<SecondPopularBookResponse[]>({
       method: "get",
       url: `${this.controller}/second-popular?minTotalSold=${minTotalSold}`,
     });

@@ -12,7 +12,9 @@ import {
   useCountBooksMorePriceThan,
   useGetSecondPopularBook,
 } from "../hooks/useBooks";
-import { BookListItem } from "../services/bookApiService";
+import { useGetBookCopies } from "../hooks/useBookCopies";
+import { BookListItem, SecondPopularBookResponse } from "../services/bookApiService";
+import { BookCopyResponse } from "../services/bookCopyApiService";
 import { useNavigate } from "react-router";
 
 function BooksDashboardPage() {
@@ -29,12 +31,17 @@ function BooksDashboardPage() {
     useCountBooksMorePriceThan();
   const { getSecondPopularBook, isLoading: isLoadingPopular } =
     useGetSecondPopularBook();
+  const { getBookCopies, isLoading: isLoadingBookCopies } = useGetBookCopies();
 
   const [books, setBooks] = useState<BookListItem[]>([]);
   const [priceInput, setPriceInput] = useState<string>("");
   const [cutPricePercent, setCutPricePercent] = useState<string>("");
   const [cutPriceMinSales, setCutPriceMinSales] = useState<string>("");
   const [minTotalSold, setMinTotalSold] = useState<string>("");
+  const [bookCopies, setBookCopies] = useState<BookCopyResponse[]>([]);
+  const [showBookCopiesModal, setShowBookCopiesModal] = useState(false);
+  const [popularBooks, setPopularBooks] = useState<SecondPopularBookResponse[]>([]);
+  const [showPopularBooksModal, setShowPopularBooksModal] = useState(false);
 
   useEffect(() => {
     loadBooks();
@@ -139,12 +146,19 @@ function BooksDashboardPage() {
 
     const res = await getSecondPopularBook(minSold);
     if (res.success && res.data) {
-      toast.success(
-        t("books.messages.second-popular-success", {
-          title: res.data.title,
-          totalSold: res.data.totalSold,
-        })
-      );
+      setPopularBooks(res.data);
+      setShowPopularBooksModal(true);
+    } else {
+      const code = res.error?.errors[0]?.code as string;
+      toast.error(t("apiErrors." + code));
+    }
+  };
+
+  const handleGetBookCopies = async () => {
+    const res = await getBookCopies();
+    if (res.success && res.data) {
+      setBookCopies(res.data);
+      setShowBookCopiesModal(true);
     } else {
       const code = res.error?.errors[0]?.code as string;
       toast.error(t("apiErrors." + code));
@@ -275,6 +289,23 @@ function BooksDashboardPage() {
               </button>
             </div>
           </div>
+
+          {/* Get Book Copies */}
+          <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200 md:col-span-2">
+            <h3 className="text-lg font-semibold text-gray-900 mb-3">
+              {t("books.operations.bookCopies.title")}
+            </h3>
+            <p className="text-sm text-gray-600 mb-3">
+              {t("books.operations.bookCopies.description")}
+            </p>
+            <button
+              onClick={handleGetBookCopies}
+              disabled={isLoadingBookCopies}
+              className="px-4 py-2 bg-teal-600 text-white rounded-md hover:bg-teal-700 disabled:bg-gray-400 font-medium"
+            >
+              {t("books.operations.bookCopies.button")}
+            </button>
+          </div>
         </div>
 
         {/* Add New Book Button */}
@@ -380,6 +411,186 @@ function BooksDashboardPage() {
                 {t("books.messages.noBooks")}
               </div>
             )}
+          </div>
+        )}
+
+        {/* Book Copies Modal */}
+        {showBookCopiesModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-hidden flex flex-col">
+              {/* Modal Header */}
+              <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                <h2 className="text-xl font-bold text-gray-900">
+                  {t("books.operations.bookCopies.modalTitle")}
+                </h2>
+                <button
+                  onClick={() => setShowBookCopiesModal(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Modal Body */}
+              <div className="px-6 py-4 overflow-y-auto flex-1">
+                {bookCopies.length === 0 ? (
+                  <div className="text-center py-12 text-gray-500">
+                    {t("books.operations.bookCopies.noCopies")}
+                  </div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full divide-y divide-gray-200">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            {t("books.operations.bookCopies.table.title")}
+                          </th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            {t("books.operations.bookCopies.table.oldPrice")}
+                          </th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            {t("books.operations.bookCopies.table.newPrice")}
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white divide-y divide-gray-200">
+                        {bookCopies.map((copy, index) => (
+                          <tr key={copy.bookCopyID || index} className="hover:bg-gray-50">
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="text-sm font-medium text-gray-900">
+                                {copy.title}
+                              </div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="text-sm text-gray-500">
+                                ${copy.oldPrice.toFixed(2)}
+                              </div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="text-sm text-gray-500">
+                                ${copy.newPrice.toFixed(2)}
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+
+              {/* Modal Footer */}
+              <div className="px-6 py-4 border-t border-gray-200 flex justify-end">
+                <button
+                  onClick={() => setShowBookCopiesModal(false)}
+                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 font-medium"
+                >
+                  {t("common.close")}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Popular Books Modal */}
+        {showPopularBooksModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-hidden flex flex-col">
+              {/* Modal Header */}
+              <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                <h2 className="text-xl font-bold text-gray-900">
+                  {t("books.operations.secondPopular.modalTitle")}
+                </h2>
+                <button
+                  onClick={() => setShowPopularBooksModal(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Modal Body */}
+              <div className="px-6 py-4 overflow-y-auto flex-1">
+                {popularBooks.length === 0 ? (
+                  <div className="text-center py-12 text-gray-500">
+                    {t("books.operations.secondPopular.noBooks")}
+                  </div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full divide-y divide-gray-200">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            {t("books.operations.secondPopular.table.title")}
+                          </th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            {t("books.operations.secondPopular.table.author")}
+                          </th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            {t("books.operations.secondPopular.table.totalSold")}
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white divide-y divide-gray-200">
+                        {popularBooks.map((book, index) => (
+                          <tr key={index} className="hover:bg-gray-50">
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="text-sm font-medium text-gray-900">
+                                {book.bookTitle}
+                              </div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="text-sm text-gray-500">
+                                {book.authorFullName}
+                              </div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="text-sm text-gray-500">
+                                {book.totalSold}
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+
+              {/* Modal Footer */}
+              <div className="px-6 py-4 border-t border-gray-200 flex justify-end">
+                <button
+                  onClick={() => setShowPopularBooksModal(false)}
+                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 font-medium"
+                >
+                  {t("common.close")}
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </div>
