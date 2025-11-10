@@ -427,6 +427,7 @@ BEGIN
 END;
 
 --Triggers
+--Тригер для логування змін у продажах
 GO
 CREATE OR ALTER TRIGGER tr_SalesLoging
     ON dbo.Sales
@@ -438,6 +439,7 @@ BEGIN
 END
 
 GO
+--Тригер для блокування створення продажів у не робочий час
 CREATE OR ALTER TRIGGER tr_Create_Sales_During_Not_Working_Hours
     ON dbo.Sales
     INSTEAD OF INSERT
