@@ -441,6 +441,9 @@
     "readers": {
       "READER_NOT_FOUND": "Читача не знайдено"
     },
+     "books":{
+      "PERCENT_OUT_OF_RANGE": "Процент виходить за дозволені рамки (1-50)"
+    },
     "borrowings": {
       "BOOK_NOT_FOUND": "Книгу не знайдено",
       "QUANTITY_EXCEEDS_AVAILABLE": "Кількість, яку ви намагаєтесь позичити, перевищує наявний запас",

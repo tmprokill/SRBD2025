@@ -441,6 +441,9 @@
     "readers": {
       "READER_NOT_FOUND": "Reader not found"
     },
+    "books":{
+      "PERCENT_OUT_OF_RANGE": "Percent you are trying to cut is out of range (1-50)"
+    },
     "borrowings": {
       "BOOK_NOT_FOUND": "Book not found",
       "QUANTITY_EXCEEDS_AVAILABLE": "The quantity you are trying to borrow exceeds the available stock",

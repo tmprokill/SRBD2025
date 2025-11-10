@@ -2,6 +2,7 @@
 using Domain.DTOs;
 using Domain.Models;
 using Domain.Responses;
+using Infrastructure.Common.Errors.Book;
 using Infrastructure.Common.Errors.Repository;
 using Infrastructure.Common.ResultPattern;
 using Infrastructure.Data;
@@ -224,6 +225,13 @@ public class BookRepository : IBookRepository
         }
         catch (SqlException ex)
         {
+            var errorMessage = ex.Message;
+            
+            if (errorMessage.Contains("The percent is out of range (1,50)"))
+            {
+                return Result<int>.Failure(BookErrors.PercentOfCutOutOfRange);
+            }
+            
             return Result.Failure(RepositoryErrors<Book>.UpdateError);
         }
     }
