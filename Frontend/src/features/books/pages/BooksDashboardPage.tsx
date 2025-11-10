@@ -362,12 +362,12 @@ function BooksDashboardPage() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-500">
-                        {t("books.table.authorId")}: {book.authorID}
+                        {book.author?.pseudonym || book.author?.firstName + " " + book.author?.lastName}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-500">
-                        {t("books.table.genreId")}: {book.genreID}
+                        {book.genre?.genreName}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">

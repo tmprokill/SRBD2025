@@ -46,7 +46,7 @@ public static class ConfigureBuilder
         var services = builder.Services;
         services.AddSwaggerGen(option =>
         {
-            option.SwaggerDoc("v1", new OpenApiInfo { Title = "Lexi API", Version = "v1" });
+            option.SwaggerDoc("v1", new OpenApiInfo { Title = "Library API", Version = "v1" });
             option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 In = ParameterLocation.Header,

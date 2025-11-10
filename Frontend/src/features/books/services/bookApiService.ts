@@ -45,6 +45,8 @@ export interface BookListItem {
   price: number;
   quantity: number;
   description?: string;
+  author?: Author;
+  genre?: Genre;
 }
 
 export interface SecondPopularBookResponse {
